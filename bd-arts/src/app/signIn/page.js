@@ -7,6 +7,7 @@ import { FcGoogle } from 'react-icons/fc';
 import { signIn, useSession,getSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import Loader from '../components/loader';
 
 
 const Login = () => {
@@ -26,7 +27,7 @@ const Login = () => {
       }, [status]);
     
       if (isLoading) {
-        return <p>...Loading</p>;
+        return<Loader/>;
       }
 
     return(
@@ -72,7 +73,7 @@ const Login = () => {
        </div>
      </div>
      
-   
+
    
    </div>
          )

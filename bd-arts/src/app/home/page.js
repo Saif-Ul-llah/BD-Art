@@ -7,12 +7,18 @@ import Navbar from '../components/nav';
 import { BiSolidRightArrow } from 'react-icons/bi'
 import Carousel from '../carousel/page';
 import Link from 'next/link';
+import Image from 'next/image';
+import bg from '@/app/img/hombg.jpg'
+
 
 const home = () => {
  const router =useRouter()
  const {data:session}= useSession();
  return (
   <div>
+  <Image src={bg} className='w-full absolute -z-10  h-screen'  alt='image'/>
+
+
     {session ? (
       <div>   
       <Navbar/>
