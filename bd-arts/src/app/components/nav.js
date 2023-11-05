@@ -5,7 +5,8 @@ import { TfiShoppingCartFull } from "react-icons/tfi"
 import '../globals.css'
 import Link from 'next/link'
 
-const Navbar = () => {
+const Navbar = ({ openCart }) => {
+  
   return (
    
 <nav id='ft' className=" text-white border-gray-200 dark:bg-gray-900">
@@ -32,7 +33,7 @@ const Navbar = () => {
           <Link href="#" id='ft' className="block py-2 pl-3 pr-4 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">About Us</Link>
         </li>
        <li>
-          <Link href="#" className="block py-2 pl-3 pr-4  rounded hover:bg-white md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"><TfiShoppingCartFull className='text-white'/></Link>
+          <Link href="#"  onClick={openCart} className="block py-2 pl-3 pr-4  rounded hover:bg-white md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"><TfiShoppingCartFull className='text-white'/></Link>
         </li>
       </ul>
     </div>

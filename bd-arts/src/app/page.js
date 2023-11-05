@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import Login from './signin/page'
+import Login from './signIn/page'
 import { SessionProvider } from 'next-auth/react'
 
 

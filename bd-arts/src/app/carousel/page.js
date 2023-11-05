@@ -1,100 +1,103 @@
 'use client'
-import React from 'react';
+
+import React, { useState, useEffect } from 'react';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import Navbar from '../components/nav';
 import Image from 'next/image';
 import bg from '@/app/img/categories.jpg';
-
+import Cart from '../components/cart';
+import axios from "../../../utilis/axios"
+import MineLoader from '../components/mineloader';
+import Spinner from '../components/spinner';
+import { useRouter } from 'next/navigation';
 
 const CustomCarousel = () => {
+
+  const router = useRouter();
+  const [loading, setLoading] = useState(true);
+  // State to hold the list of products
+  const [products, setProducts] = useState([]);
+
+  // Fetch products from the server (replace 'fetchProducts' with your actual API call)
+  const fetchProducts = async () => {
+    try {
+      const response = await axios.get('/get-products'); // Replace with your API endpoint
+      const data = await response.data;
+      setProducts(data);
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // useEffect to fetch products when the component mounts
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  // State to manage the opened/closed state of the cart
+  const [cartOpen, setCartOpen] = useState(false);
+
+  // State to store the selected product ID
+  const [selectedProductId, setSelectedProductId] = useState(null);
+
+  // Function to handle product click
+  const handleProductClick = (productId) => {
+    setSelectedProductId(productId);
+    router.push(`/Products/${productId}`)
+    // console.log(productId);
+    // You can perform additional actions here, such as opening a modal with product details
+  };
+
+  // Function to open the cart
+  const openCart = () => {
+    setCartOpen(true);
+  };
+
+  // Function to close the cart
+  const closeCart = () => {
+    setCartOpen(false);
+  };
+
   return (
-<div className=''>
+    <div className=''>
       <div>
-       <Image src={bg} className='w-screen absolute -z-10  h-screen'  alt='image'/>
-     </div>
-      <Navbar/>
-  <div className='md:flex md:flex-col md:mx-auto md:justify-center md:items-center mt-36 '>
-     <div className=' md:w-9/12 '>
-    <div className="carousel-container   ">
-      <Carousel
-        showArrows={true}
-        showThumbs={false}
-        showStatus={false}
-        infiniteLoop={true}
-        centerMode={true}
-        autoPlay={true}
-        centerSlidePercentage={60} 
-        
-      >
-        <div className="carousel-item mx-5">
-          <img
-            src="https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
-            alt="Image 1"
-          />
+        <Image src={bg} className='w-screen absolute -z-10  h-screen' alt='image' />
+      </div>
+      <Navbar openCart={openCart} />
+      <Cart open={cartOpen} onClose={closeCart} />
+
+      <div className='md:flex md:flex-col md:mx-auto md:justify-center md:items-center mt-20 '>
+        <div className=' md:w-9/12 '>
+          <div className="carousel-container">   
+            {!loading && (
+              <Carousel
+              showArrows={true}
+                showThumbs={false}
+                showStatus={false}
+                infiniteLoop={true}
+                centerMode={true}
+                autoPlay={true}
+                centerSlidePercentage={60}
+              >
+                {products.map((product) => (
+                  <div
+                    key={product._id}
+                    className="carousel-item mx-5"
+                    onClick={() => handleProductClick(product._id)}
+                  >
+                    <img className='h-96' src={product.imageUrl} alt={product.name} />
+                  </div>
+                ))}
+              </Carousel>)}
+              {loading && <Spinner/>}
+          </div>
         </div>
-        <div className="carousel-item mx-5">
-          <img
-            src="https://images.unsplash.com/photo-1511556532299-8f662fc26c06?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
-            alt="Image 2"
-          />
-        </div>
-        <div className="carousel-item mx-5">
-          <img
-            src="https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
-            alt="Image 1"
-          />
-        </div>
-        <div className="carousel-item mx-5">
-          <img
-            src="https://images.unsplash.com/photo-1511556532299-8f662fc26c06?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
-            alt="Image 2"
-          />
-        </div>
-        <div className="carousel-item mx-5">
-          <img
-            src="https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
-            alt="Image 1"
-          />
-        </div>
-        <div className="carousel-item mx-5">
-          <img
-            src="https://images.unsplash.com/photo-1511556532299-8f662fc26c06?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
-            alt="Image 2"
-          />
-        </div>
-        <div className="carousel-item mx-5">
-          <img
-            src="https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
-            alt="Image 1"
-          />
-        </div>
-        <div className="carousel-item mx-5">
-          <img
-            src="https://images.unsplash.com/photo-1511556532299-8f662fc26c06?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
-            alt="Image 2"
-          />
-        </div>
-        <div className="carousel-item mx-5">
-          <img
-            src="https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
-            alt="Image 1"
-          />
-        </div>
-        <div className="carousel-item mx-5">
-          <img
-            src="https://images.unsplash.com/photo-1511556532299-8f662fc26c06?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
-            alt="Image 2"
-          />
-        </div>
-        
-        {/* Add more slides as needed */}
-      </Carousel>
+      </div>
     </div>
-    </div>
-    </div>
-</div>  );
+  );
 };
 
 export default CustomCarousel;
-
