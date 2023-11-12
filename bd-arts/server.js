@@ -1,30 +1,32 @@
 const express = require("express");
-const mongoose = require("mongoose");
 const Registration = require("./models/registration");
-const Provider = require("./models/providers");
-const Product = require("./models/product");
+// const Provider = require("./models/providers");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 // const Product = require('./models/product');
 const session = require("express-session");
 const fileUpload = require("express-fileupload");
 const compression = require("compression");
-const busboy = require("connect-busboy");
-// const multer = require('multer');
-// const upload = multer();
+const Product = require("./models/product");
+const mongoose = require("mongoose");
+const CartItem = require("./models/CartItems");
+
+
+
 
 const app = express();
 const allowedOrigins = ["http://localhost:3000"];
+app.timeout = 300000;
 
-app.use(express.json({ limit: "50mb" }));
 
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ extended: true, limit: '50mb' }));
+
+// app.use(express.urlencoded({ extended: true }));
 
 app.use(fileUpload());
 // app.use(express.json())
 app.use(compression());
-app.use(busboy());
-
 const corsOptions = {
   origin: (origin, callback) => {
     if (allowedOrigins.includes(origin) || !origin) {
@@ -218,8 +220,7 @@ app.post("/admin", async (req, res) => {
 
 // ... (imports and other configurations)
 
-app.post("/add-product", async (req, res) => {
-  console.log("Request Body:", req.body);
+app.post('/add-product',async(req, res) => {
 
   try {
     const {
@@ -227,7 +228,6 @@ app.post("/add-product", async (req, res) => {
       price,
       category,
       imageData,
-      imageContentType,
       Background,
       animation,
       Character_Proportion,
@@ -236,7 +236,7 @@ app.post("/add-product", async (req, res) => {
     } = req.body;
 
     // Basic validation
-    if (!name || !price || !category || !imageData || !imageContentType) {
+    if (!name || !price || !category || !imageData ) {
       return res
         .status(400)
         .json({ message: "All required fields must be provided." });
@@ -247,7 +247,7 @@ app.post("/add-product", async (req, res) => {
       name,
       price,
       category,
-      imageUrl: `data:${imageContentType};base64,${imageData}`,
+      imageUrl:imageData,
     };
 
     // Set optional fields
@@ -289,12 +289,11 @@ app.post("/add-product", async (req, res) => {
 app.get("/get-products", async (req, res) => {
   try {
     // Retrieve a limited set of products from the database
-    const { page = 1, pageSize = 10 } = req.query;
+    // const { page = 1, pageSize = 10 } = req.query; 
     const products = await Product.find()
       .select("name category price imageUrl brand")
-      .skip((page - 1) * pageSize)
-      .limit(pageSize);
-
+      
+   
     // Send the list of products as a response
     res.status(200).json(products);
   } catch (error) {
@@ -380,7 +379,7 @@ app.delete("/delete-product/:id", async (req, res) => {
     console.error("Error deleting product:", error);
     res.status(500).json({ message: "Internal Server Error" });
   }
-});
+}); 
 
 app.get("/get-product/:id", async (req, res) => {
   try {
@@ -396,3 +395,59 @@ app.get("/get-product/:id", async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
+
+app.get('/products-by-category/:category', async (req, res) => {
+  try {
+    const { page = 1, pageSize = 10 } = req.query;
+    const { category } = req.params;
+
+    const products = await Product.find({ category: category })
+      .select('name category price imageUrl brand')
+      .skip((page - 1) * pageSize)
+      .limit(pageSize);
+
+    res.status(200).json(products);
+  } catch (error) {
+    console.error('Error getting products by category:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
+app.post('/update-cart',async (req, res) => {
+
+  try {
+    const { productId, userId, selectedOptions, description ,img} = req.body;
+   
+
+    // Create a new cart item
+    const newCartItem = new CartItem({
+      productId,
+      userId,
+      selectedOptions, 
+      description,
+      selectedFile:img
+    });
+
+    // Save the cart item to the database
+    const savedCartItem = await newCartItem.save();
+
+    res.json({message:true, savedCartItem});
+  } catch (error) {
+    console.error('Error adding product to cart:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  } 
+
+});
+
+app.get('/get-cart-items/:userId', async (req, res) => {  
+  try {
+    const userId = req.params.userId;
+    // console.log(userId);
+    const cartItems = await CartItem.find({userId});
+
+    res.json({ message: true, cartItems });
+  } catch (error) {
+    console.error('Error getting cart items:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+}); 

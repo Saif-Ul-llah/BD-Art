@@ -3,6 +3,8 @@
 import instance from "../../../utilis/axios";
 import React, { useState } from "react";
 import { useDropzone } from "react-dropzone";
+import { XMarkIcon } from "@heroicons/react/24/outline";
+import Axios from "axios";
 
 const AddProduct = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -10,10 +12,9 @@ const AddProduct = () => {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     name: "",
-    // brand: '',
     price: 0,
     category: "",
-    Background: {},  // Initialize optional fields as empty objects
+    Background: {}, // Initialize optional fields as empty objects
     animation: {},
     Character_Proportion: {},
     Rigging: {},
@@ -29,8 +30,9 @@ const AddProduct = () => {
   };
 
   const onDrop = (acceptedFiles) => {
-    const file = acceptedFiles[0];
-    handleFile(file);
+    const file = acceptedFiles.currentTarget.files[0];
+    // handleFile(file);
+    setSelectedFile(file);
   };
 
   const { getRootProps, getInputProps } = useDropzone({
@@ -39,9 +41,10 @@ const AddProduct = () => {
     multiple: false,
   });
 
-  const handleFileInputChange = (event) => {
-    const file = event.target.files[0];
-    handleFile(file);
+  const handleFileInputChange = (e) => {
+    const file = e.currentTarget.files[0];
+    // handleFile(file);
+    setSelectedFile(file);
   };
 
   const handleFile = (file) => {
@@ -54,21 +57,18 @@ const AddProduct = () => {
       console.error("Invalid file type or extension");
       return;
     }
-
-    // Read the file data as a base64-encoded string
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      const imageData = reader.result.split(",")[1]; // Extract base64 data
-      setSelectedFile({ file, imageData });
-    };
-
-    reader.readAsDataURL(file);
+    // setSelectedFile(file);
   };
 
   const isValidFile = (file) => {
     // Define allowed file extensions and MIME types
     const allowedExtensions = ["jpg", "jpeg", "png", "gif"];
-    const allowedMimeTypes = ["image/jpeg", "image/png", "image/gif"];
+    const allowedMimeTypes = [
+      "image/jpg",
+      "image/jpeg",
+      "image/png",
+      "image/gif",
+    ];
 
     // Get the file extension and MIME type
     const fileExtension = file.name.split(".").pop().toLowerCase();
@@ -104,7 +104,7 @@ const AddProduct = () => {
   };
 
   const nextStep = () => {
-    console.log(formData);
+    // console.log(formData);
     // if (validateForm()) {
     setStep(step + 1);
     // }
@@ -114,23 +114,35 @@ const AddProduct = () => {
     setStep(step - 1);
   };
 
-
   const handleSubmit = async (event) => {
-    event.preventDefault();
-  
     try {
-      const formDataToSend = new FormData();
-      formDataToSend.append("name", formData.name);
-      formDataToSend.append("price", formData.price);
-      formDataToSend.append("category", formData.category);
+      event.preventDefault();
   
-      // Append image data and content type if selectedFile exists
-      if (selectedFile) {
-        formDataToSend.append("imageData", selectedFile.imageData);
-        formDataToSend.append("imageContentType", selectedFile.file.type);
-      }
+      // Upload image to Cloudinary
+      const cloudinaryData = new FormData();
+      cloudinaryData.append("file", selectedFile);
+      cloudinaryData.append("upload_preset", "userCart");
+      cloudinaryData.append("cloud_name", "saif-ul-llah");
   
-      // Append optional fields if they exist in formData
+      const cloudinaryResponse = await Axios.post(
+        "https://api.cloudinary.com/v1_1/saif-ul-llah/image/upload",
+        cloudinaryData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
+  
+      const imageUrl = cloudinaryResponse?.data?.url;
+  
+      // Prepare data to send to the server
+      const formDataToSend = {
+        name: formData.name,
+        price: formData.price,
+        category: formData.category,
+        imageData: imageUrl,
+      };
+  
+      // Handle optional fields
       const optionalFieldNames = [
         "Background",
         "animation",
@@ -141,22 +153,19 @@ const AddProduct = () => {
   
       optionalFieldNames.forEach((fieldName) => {
         const optionalFieldData = formData[fieldName];
-        formDataToSend.append(fieldName, JSON.stringify(optionalFieldData));
+        formDataToSend[fieldName] = JSON.stringify(optionalFieldData);
       });
   
-      console.log("FormData to Send:", formDataToSend);
+      // Send data to the server
+      const response = await instance.post("/add-product", formDataToSend);
   
-      // Use fetch or axios to send the form data to your server
-      const response = await instance.post("/add-product", formDataToSend, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-  
+      // Check the server response
       if (response.status === 201) {
         console.log("Product added successfully");
         // Additional logic after successful submission
         closeModal();
+        setStep(1);
+        setSelectedFile(null);
       } else {
         // Check the response data for more details on failure
         console.error("Failed to add product", response.data);
@@ -164,11 +173,11 @@ const AddProduct = () => {
       }
     } catch (error) {
       // Log the entire error object for detailed information
-      console.error("Error adding product catch:", error.message);
+      console.error("Error adding product:", error.message);
       // Handle error
     }
   };
-
+  
   const renderForm = () => {
     switch (step) {
       case 1:
@@ -260,7 +269,7 @@ const AddProduct = () => {
                 Select category
               </option>
               {/* categeries no 1 */}
-              <option value="Anime">Anime</option>
+              <option value=" ">Anime</option>
               <option value="DND_Character">DND Character</option>
               <option value="OC_Art">OC Art</option>
               <option value="Furry">Furry</option>
@@ -290,7 +299,7 @@ const AddProduct = () => {
             <div className="flex flex-col items-center">
               {selectedFile ? (
                 <img
-                  src={URL.createObjectURL(selectedFile.file)}
+                  src={URL.createObjectURL(selectedFile)}
                   alt="Selected Product"
                   className="w-full h-auto rounded-lg mb-2 "
                 />
@@ -1059,20 +1068,12 @@ const AddProduct = () => {
                   type="button"
                   className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
                 >
-                  <svg
-                    aria-hidden="true"
-                    className="w-5 h-5"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    {/* ... (unchanged code) ... */}
-                  </svg>
+                  <XMarkIcon className="h-6 w-6" aria-hidden="true" />
                   <span className="sr-only">Close modal</span>
                 </button>
               </div>
               {/* Modal body */}
-              <form onSubmit={handleSubmit}>{renderForm()}</form>
+              <form onSubmit={handleSubmit}> {renderForm()}</form>
             </div>
           </div>
         </div>

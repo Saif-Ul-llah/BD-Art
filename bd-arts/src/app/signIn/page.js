@@ -45,7 +45,8 @@ const Login = () => {
     return <Loader />;
   }
 
-  const handleSignIn = async () => {
+  const handleSignIn = async (e) => {
+    e.preventDefault()
     // console.log(formData.email,formData.password)
     try {
       let bodyformData = new FormData();
@@ -65,6 +66,7 @@ const Login = () => {
           let success = response.data.success;
 
           if (success == true || response.data.email) {
+            localStorage.setItem("UserData",JSON.stringify(response.data))
             router.push("/home");
           } else {
             // Registration failed
