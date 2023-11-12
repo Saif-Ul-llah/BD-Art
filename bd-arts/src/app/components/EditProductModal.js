@@ -11,7 +11,7 @@ const EditProductModal = ({ isOpen, onClose, product, onUpdate }) => {
     useEffect(() => {
         setEditedProduct(product);
     }, [product]);
-
+ 
     const onDrop = (acceptedFiles) => {
         const file = acceptedFiles[0];
         handleFile(file);

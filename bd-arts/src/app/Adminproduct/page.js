@@ -18,7 +18,7 @@ const Product = () => {
     const handleEditModalClose = () => {
       setSelectedProduct(null);
       setIsEditModalOpen(false);
-    };
+    }; 
   
   return (
     <div>
