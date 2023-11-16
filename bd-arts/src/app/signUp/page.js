@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "../../../utilis/axios"; // Make sure you have axios installed
 import { FaEye, FaEyeSlash } from "react-icons/fa"; // Import the desired icons
-import bg from "@/app/img/bg.jpg"; 
+import bg from "../../app/img/bg.jpg"; 
 import Link from "next/link";
 
 

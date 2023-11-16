@@ -11,9 +11,6 @@ const Product = require("./models/product");
 const mongoose = require("mongoose");
 const CartItem = require("./models/CartItems");
 
-
-
-
 const app = express();
 const allowedOrigins = ["http://localhost:3000"];
 app.timeout = 300000;
