@@ -5,7 +5,7 @@ import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import Navbar from "../components/nav";
 import Image from "next/image";
-import bg from "@/app/img/categories.jpg";
+import bg from "../../app/img/categories.jpg";
 import Cart from "../components/cart";
 import axios from "../../../utilis/axios";
 import MineLoader from "../components/mineloader";

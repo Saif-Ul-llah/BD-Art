@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import bg from "@/app/img/bg.jpg"; //
+import bg from "../../app/img/bg.jpg"; //
 import React, { useState, useEffect } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { signIn, useSession, getSession } from "next-auth/react";
