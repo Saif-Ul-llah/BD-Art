@@ -6,28 +6,13 @@
     font-family: soria;
     src: url(../../public/soria-font.ttf);
 }
-/* 
-@font-face {
-    font-family: mT;
-    src: url(/public/GIL_____.TTF);
-} */
-
 body{
     font-family: soria;
-    /* background-image: url(./img/hombg.jpg);
-    background-position:center ; */
-    background-repeat: no-repeat;
-    /* background-size:cover ; */
-    
-
-
+     background-repeat: no-repeat;
 }
 #ft{
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    /* background-color: red; */
 }
-
-
 .loader-container {
   display: flex;
   justify-content: center;
