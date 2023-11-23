@@ -1,0 +1,68 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: soria;
+    src: url(../../public/soria-font.ttf);
+}
+body{
+    font-family: soria;
+     background-repeat: no-repeat;
+}
+#ft{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.loader-contain {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 20%;
+}
+
+.loader-line {
+  width: 8px;
+  height: 50px;
+  background-color: purple;
+  border-radius: 4px;
+  margin: 0 5px;
+  animation: pulse 1s alternate infinite, resize 1s alternate infinite;
+  animation-delay: 0s;
+}
+
+.loader-line:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.loader-line:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+}
+
+@keyframes resize {
+  0% {
+    height: 50px;
+  }
+  100% {
+    height: 70px;
+  }
+}
