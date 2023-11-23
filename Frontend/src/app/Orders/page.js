@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react'
 import Navbar from '../components/nav'
+import Cart from '../components/cart';
 
 const Order = () => {
   const [cartOpen, setCartOpen] = useState(false);
