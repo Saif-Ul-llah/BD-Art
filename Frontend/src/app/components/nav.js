@@ -39,7 +39,7 @@ const Navbar = ({ openCart }) => {
           </Link>
         </div>
        <div className="flex md:flex-row-reverse">
-       <div className="  mt-2 justify-center text-2xl md:px-3 md:mt-0 md:text-3xl ">
+       <div className=" mt-2 justify-center text-2xl md:px-3 md:mt-0 md:text-3xl ">
           <UserDropdown />
           </div>
           <button
@@ -72,7 +72,7 @@ const Navbar = ({ openCart }) => {
             } w-full md:block md:w-auto`}
             id="navbar-default"
           >
-            <ul className="font-medium flex flex-col  md:text-3xl text-white p-4 md:p-0 mt-4 border border-gray-100 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0">
+            <ul className="font-medium flex flex-col mt-10 md:text-2xl text-white p-4 md:p-0  border border-gray-100  rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0">
               <li>
                 <Link
                   href="/home"
@@ -81,6 +81,15 @@ const Navbar = ({ openCart }) => {
                   aria-current="page"
                 >
                   Home
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/PreMadeArt"
+                  id="ft"
+                  className="block py-2 pl-3 pr-4 hover:bg-gray-100 md:hover:bg-transparent md:border-0  md:p-0 "
+                >
+                  Pre-Made Art
                 </Link>
               </li>
               <li>
@@ -94,7 +103,7 @@ const Navbar = ({ openCart }) => {
               </li>
               <li>
                 <Link
-                  href="#"
+                  href="/AboutUs"
                   id="ft"
                   className="block py-2 pl-3 pr-4 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:p-0"
                 >

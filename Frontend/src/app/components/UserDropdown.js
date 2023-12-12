@@ -31,7 +31,7 @@ const UserDropdown = () => {
       {isOpen && (
         <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
           <div className="py-1">
-            <div className="block px-4 py-2 text-xl text-gray-700 hover:bg-gray-100">
+            <div className="block cursor-pointer px-4 py-2 text-xl text-gray-700 hover:bg-gray-100">
               {user?.user_name}
             </div>
             
@@ -39,7 +39,7 @@ const UserDropdown = () => {
               {user?.email ? (
                <div>
                  <Link href="/Orders">
-                <div className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                <div className="block cursor-pointer px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                   Orders
                 </div>
               </Link>
@@ -48,7 +48,7 @@ const UserDropdown = () => {
                     signOut({ callbackUrl: "/" });
                     localStorage.clear();
                   }}
-                  className="flex float-right px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  className="flex cursor-pointer float-right px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 >
                   Sign Out
                 </div>
@@ -58,7 +58,7 @@ const UserDropdown = () => {
                   onClick={() => {
                     router.push("/signIn");
                   }}
-                  className="flex float-right px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  className="flex cursor-pointer float-right px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 >
                   Login
                 </div>

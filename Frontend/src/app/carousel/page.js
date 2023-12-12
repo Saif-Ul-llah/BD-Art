@@ -115,7 +115,7 @@ const CustomCarousel = () => {
                       />
                     </div>
                     <figcaption className="flex pt-5 px-4 md:text-4xl font-bold justify-center items-center">
-                      <p className="w-64 border-2 border-black rounded-3xl bg-black text-white">{product.category}</p>
+                      <p className="w-64 border-2 border-white rounded-3xl text-white">{product.category}</p>
                     </figcaption>
                     <div className="h-9"></div>
                   </div>

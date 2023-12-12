@@ -47,19 +47,6 @@ const AddProduct = () => {
     setSelectedFile(file);
   };
 
-  const handleFile = (file) => {
-    if (!file) {
-      return;
-    }
-
-    // Check if the file has a valid extension and MIME type
-    if (!isValidFile(file)) {
-      console.error("Invalid file type or extension");
-      return;
-    }
-    // setSelectedFile(file);
-  };
-
   const isValidFile = (file) => {
     // Define allowed file extensions and MIME types
     const allowedExtensions = ["jpg", "jpeg", "png", "gif"];
@@ -108,10 +95,6 @@ const AddProduct = () => {
     // if (validateForm()) {
     setStep(step + 1);
     // }
-  };
-
-  const prevStep = () => {
-    setStep(step - 1);
   };
 
   const handleSubmit = async (event) => {
@@ -391,18 +374,6 @@ const AddProduct = () => {
               <label htmlFor="Anime" className="mr-4">
                 Anime
               </label>
-
-              {/* Checkbox for null */}
-              <input
-                type="checkbox"
-                id="NullEmote"
-                name="Emote_style"
-                value="null"
-                // checked={formData.Emote_style.includes("null")} // Uncomment and modify accordingly
-                onChange={handleInputChange}
-                className="mr-2"
-              />
-              <label htmlFor="NullEmote">Null</label>
             </div>
           </div>
 
@@ -414,7 +385,7 @@ const AddProduct = () => {
               Animation :
             </label>
             <div className="">
-              {/* Checkbox for Yes */}
+              {/* Checkbox for Yes */} 
               <input
                 type="checkbox"
                 id="Yes"
@@ -441,18 +412,6 @@ const AddProduct = () => {
               <label htmlFor="No" className="mr-4">
                 No
               </label>
-
-              {/* Checkbox for null */}
-              <input
-                type="checkbox"
-                id="NullAnimation"
-                name="Animation"
-                value="null"
-                // checked={formData.Animation.includes("null")} // Uncomment and modify accordingly
-                onChange={handleInputChange}
-                className="mr-2"
-              />
-              <label htmlFor="NullAnimation">Null</label>
             </div>
           </div>
         </div>
@@ -523,18 +482,6 @@ const AddProduct = () => {
               <label htmlFor="No" className="mr-4">
                 No
               </label>
-
-              {/* Checkbox for null */}
-              <input
-                type="checkbox"
-                id="NullBackground"
-                name="Background"
-                value="null"
-                // checked={formData.Animation.includes("null")} // Uncomment and modify accordingly
-                onChange={handleInputChange}
-                className="mr-2"
-              />
-              <label htmlFor="NullBackground">Null</label>
             </div>
           </div>
 
@@ -610,18 +557,6 @@ const AddProduct = () => {
               <label htmlFor="No" className="mr-4">
                 No
               </label>
-
-              {/* Checkbox for null */}
-              <input
-                type="checkbox"
-                id="NullRigging"
-                name="Rigging"
-                value="null"
-                // checked={formData.Animation.includes("null")} // Uncomment and modify accordingly
-                onChange={handleInputChange}
-                className="mr-2"
-              />
-              <label htmlFor="NullRigging">Null</label>
             </div>
           </div>
         </div>
@@ -694,17 +629,7 @@ const AddProduct = () => {
                 No
               </label>
 
-              {/* Checkbox for null */}
-              <input
-                type="checkbox"
-                id="NullBackground"
-                name="Background"
-                value="null"
-                // checked={formData.Animation.includes("null")} // Uncomment and modify accordingly
-                onChange={handleInputChange}
-                className="mr-2"
-              />
-              <label htmlFor="NullBackground">Null</label>
+          
             </div>
           </div>
 
@@ -740,18 +665,6 @@ const AddProduct = () => {
               <label htmlFor="No" className="mr-4">
                 No
               </label>
-
-              {/* Checkbox for null */}
-              <input
-                type="checkbox"
-                id="NullAnimation"
-                name="animation"
-                value="null"
-                // checked={formData.Animation.includes("null")} // Uncomment and modify accordingly
-                onChange={handleInputChange}
-                className="mr-2"
-              />
-              <label htmlFor="NullAnimation">Null</label>
             </div>
           </div>
 
@@ -770,18 +683,6 @@ const AddProduct = () => {
                 className="mr-2"
               />
               <label className="mr-4">Headshot</label>
-
-              <input
-                type="checkbox"
-                id="Protrait"
-                name="Character_Proportion"
-                value="Protrait"
-                // checked={formData.Animation.includes("No")} // Uncomment and modify accordingly
-                onChange={handleInputChange}
-                className="mr-2"
-              />
-              <label className="mr-4">Protrait</label>
-
               <input
                 type="checkbox"
                 id="Half_Body"
@@ -871,18 +772,6 @@ const AddProduct = () => {
               <label htmlFor="No" className="mr-4">
                 No
               </label>
-
-              {/* Checkbox for null */}
-              <input
-                type="checkbox"
-                id="NullAnimation"
-                name="animation"
-                value="null"
-                // checked={formData.Animation.includes("null")} // Uncomment and modify accordingly
-                onChange={handleInputChange}
-                className="mr-2"
-              />
-              <label htmlFor="NullAnimation">Null</label>
             </div>
           </div>
 
@@ -960,18 +849,6 @@ const AddProduct = () => {
                 Stream_Screens
               </label>
               <br />
-
-              {/* Checkbox for null */}
-              <input
-                type="checkbox"
-                id="NullOverlay_type"
-                name="Overlay_Type"
-                value="null"
-                // checked={formData.Animation.includes("null")} // Uncomment and modify accordingly
-                onChange={handleInputChange}
-                className="mr-2"
-              />
-              <label htmlFor="NullOverlay_type">Null</label>
             </div>
           </div>
         </div>
@@ -1037,6 +914,8 @@ const AddProduct = () => {
       </div>
     );
   };
+
+  
   return (
     <div>
       {/* Modal toggle */}
