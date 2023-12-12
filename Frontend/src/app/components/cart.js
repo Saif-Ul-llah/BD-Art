@@ -14,21 +14,23 @@ export default function Cart({ open, onClose }) {
   const [subtotal, setSubtotal] = useState(0);
   const [id, setId] = useState({});
 
+  let ide = JSON.parse(localStorage.getItem("UserData"));
+
+  const fetchCartItems = async () => {
+    try {
+      const userId = ide._id;
+      // console.log(userId);
+      const response = await axios.get(`/get-cart-items/${userId}`);
+      const data = await response.data;
+      setCartItems(data.cartItems);
+      localStorage.setItem("CartData", JSON.stringify(data.cartItems));
+    } catch (error) {
+      console.error("Error fetching cart items:", error.message);
+    }
+  };
+
   useEffect(() => {
     setId(JSON.parse(localStorage.getItem("UserData")));
-    
-    let id= JSON.parse(localStorage.getItem("UserData"));
-    const fetchCartItems = async () => {
-      try {
-        const userId = id._id;
-        const response = await axios.get(`/get-cart-items/${userId}`);
-        const data = await response.data;
-        setCartItems(data.cartItems);
-        localStorage.setItem("CartData",JSON.stringify(data.cartItems));
-      } catch (error) {
-        console.error("Error fetching cart items:", error.message);
-      }
-    };
 
     fetchCartItems();
   }, []);
@@ -44,13 +46,25 @@ export default function Cart({ open, onClose }) {
 
     calculateSubtotal();
   }, [cartItems]);
-  
+
+  const removeProduct = async (productId) => {
+    try {
+      // Make a DELETE request to the backend API
+      await axios.delete(`/remove-product/${productId}`);
+      fetchCartItems();
+      // Update the local state or trigger a refetch of cart items
+      // You might want to update the cartItems state or refetch the data from the server
+    } catch (error) {
+      console.error("Error removing product:", error.message);
+    }
+  };
+
   const OrderNow = () => {
     if (!id?.email) {
       router.push("/signIn");
     } else {
+      localStorage.setItem("SubTotal", subtotal);
       router.push("/Payment");
-      localStorage.setItem("SubTotal",subtotal)
     }
   };
 
@@ -114,7 +128,7 @@ export default function Cart({ open, onClose }) {
                               >
                                 <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                                   <img
-                                    src={item?.selectedFile}
+                                    src={item?.productId.imageUrl}
                                     alt={item.productId.name}
                                     className="h-full w-full object-cover object-center"
                                   />
@@ -149,6 +163,9 @@ export default function Cart({ open, onClose }) {
                                     <div className="flex">
                                       <button
                                         type="button"
+                                        onClick={() =>
+                                          removeProduct(item.productId._id)
+                                        }
                                         className="font-medium text-indigo-600 hover:text-indigo-500"
                                       >
                                         Remove

@@ -15,10 +15,12 @@ const Pay = () => {
     firstName: "",
     lastName: "",
     phoneNumber: "",
-    discountCode: "",
+    promoCode: "",
     payment: "",
     total: Number,
+    apply: true,
   });
+  const [formErrors, setFormErrors] = useState({});
   const [cartOpen, setCartOpen] = useState(false);
   const openCart = () => {
     setCartOpen(true);
@@ -30,13 +32,45 @@ const Pay = () => {
 
   useEffect(() => {
     let sub = localStorage.getItem("SubTotal");
-    // console.log(sub);
+    console.log(typeof parseInt(sub));
     setFormData({
       ...formData,
-      total: sub,
+      total: parseInt(sub),
     });
     setdata(false);
   }, []);
+
+  const validateForm = () => {
+    const errors = {};
+    // Validate email
+    if (!formData.email.trim()) {
+      errors.email = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      errors.email = "Invalid email address";
+    }
+
+    // Validate country
+    if (!formData.country.trim()) {
+      errors.country = "Country is required";
+    }
+
+    // Validate payment
+    if (!formData.payment) {
+      errors.payment = "Payment method is required";
+    }
+    if (!formData.firstName.trim()) {
+      errors.firstName = "First Name is required";
+    }
+    if (!formData.lastName.trim()) {
+      errors.lastName = "Last Name is required";
+    }
+    if (!formData.phoneNumber.trim()) {
+      errors.phoneNumber = "Phone Number is required";
+    }
+
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0; // Returns true if no errors
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -48,14 +82,107 @@ const Pay = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form Data:", formData);
-    let cart = JSON.parse(localStorage.getItem("CartData"));
-    let total = JSON.parse(localStorage.getItem("SubTotal"));
 
-    if (formData.payment == "stripe") {
-      let response = axios.post("/create-checkout-session", { cart });
-    } else if (formData.payment == "paypal") {
-      let response = axios.post("/pay", { cart, total });
+    if (validateForm()) {
+      let user = JSON.parse(localStorage.getItem("UserData"));
+      let cart = JSON.parse(localStorage.getItem("CartData"));
+      // let total = JSON.parse(localStorage.getItem("SubTotal"));
+      let total = formData.total;
+      if (formData.payment == "stripe") {
+        const makeStirpeRequest = async () => {
+          try {
+            setdata(true);
+            // Make the stripe payment request
+            let response = await axios.post("/create-checkout-session", {
+              cart,
+              user,
+             total, 
+            });
+            // console.log(response);
+
+            // Check if the response contains the 'approveLink'
+            if (response.data.url) {
+              // Open the 'approveLink' in a new window
+              // let res = await axios.post("/DBandEmail", {
+              //   cart,
+              //   user,
+              //   total,
+              // });
+              // if(res.status==201){
+                setdata(false);
+                // window.open(response.data, "_blank");
+                window.location.href=response.data.url
+              // }
+            } else {
+              console.error("No 'approveLink' found in the Stripe response.");
+              setdata(false);
+            }
+          } catch (error) {
+            console.error("Error making Stripe payment request:", error);
+          }
+        };
+
+        // Invoke the function
+        makeStirpeRequest();
+      } else if (formData.payment === "paypal") {
+        // Wrap the asynchronous code in a function
+        const makePayPalRequest = async () => {
+          try {
+            setdata(true);
+            // Make the PayPal payment request
+            const response = await axios.post("/pay", { cart, total, user });
+            // console.log(response);
+
+            // Check if the response contains the 'approveLink'
+            if (response.data && response.data.href) {
+              // Open the 'approveLink' in a new window
+              setdata(false);
+              window.open(response.data.href, "_blank");
+            } else {
+              console.error("No 'approveLink' found in the PayPal response.");
+            }
+          } catch (error) {
+            console.error("Error making PayPal payment request:", error);
+          }
+        };
+
+        // Invoke the function
+        makePayPalRequest();
+      }
+    }
+  };
+
+  const applyPromoCode = async () => {
+    try {
+      const response = await axios.post("/apply-promo", formData);
+
+      if (response) {
+        const result = await response.data;
+        // Update UI with applied discount
+        // console.log(typeof(result.discountPercentage));
+
+        // Check if discountPercentage is a valid number
+        const discountPercentage = parseInt(result.discountPercentage);
+        if (!isNaN(discountPercentage) && formData.apply) {
+          setFormData({
+            ...formData,
+            total: formData.total - discountPercentage,
+            apply: false,
+          });
+
+          // console.log("Discount applied:", discountPercentage);
+        } else {
+          console.error(
+            "Invalid discountPercentage:",
+            result.discountPercentage
+          );
+        }
+      } else {
+        const error = await response.data;
+        console.error("Error applying promo code:", error.error);
+      }
+    } catch (error) {
+      console.error("Error applying promo code:", error.message);
     }
   };
 
@@ -93,10 +220,13 @@ const Pay = () => {
                       value={formData.email}
                       onChange={handleChange}
                       id="email"
-                      className=" border-2 bg-transparent border-white md:text-2xl text-white placeholder:text-white  rounded-lg block w-full md:p-2.5"
+                      className={`border-2 bg-transparent border-white md:text-2xl text-white placeholder:text-white rounded-lg block w-full md:p-2`}
                       placeholder="Email"
                       required=""
                     />
+                    {formErrors.email && (
+                      <p className="text-red-500 text-lg">{formErrors.email}</p>
+                    )}
                   </div>
                   <div>
                     {/* Country name */}
@@ -117,6 +247,9 @@ const Pay = () => {
                         placeholder="Country Name"
                         required=""
                       />
+                       {formErrors.country && (
+                      <p className="text-red-500 text-lg">{formErrors.country}</p>
+                    )}
                     </div>
                     <div className="grid grid-cols-2">
                       {/* First Name */}
@@ -131,6 +264,9 @@ const Pay = () => {
                           placeholder="First Name"
                           required=""
                         />
+                         {formErrors.firstName && (
+                      <p className="text-red-500 text-lg">{formErrors.firstName}</p>
+                    )}
                       </div>
                       {/* Last Name */}
                       <div className="md:my-3">
@@ -144,6 +280,9 @@ const Pay = () => {
                           placeholder="Last Name"
                           required=""
                         />
+                         {formErrors.lastName && (
+                      <p className="text-red-500 text-lg">{formErrors.lastName}</p>
+                    )}
                       </div>
                     </div>
                     {/* Phone Number */}
@@ -158,6 +297,9 @@ const Pay = () => {
                         placeholder="Phone Number"
                         required=""
                       />
+                       {formErrors.phoneNumber && (
+                      <p className="text-red-500 text-lg">{formErrors.phoneNumber}</p>
+                    )}
                     </div>
                   </div>
                 </div>
@@ -166,17 +308,17 @@ const Pay = () => {
                   <div className="flex">
                     <div>
                       <label
-                        htmlFor="discountCode"
+                        htmlFor="promoCode"
                         className="text-xl font-bold leading-tight tracking-widest  md:text-4xl "
                       >
                         Billing
                       </label>
                       <input
                         type="text"
-                        name="discountCode"
-                        value={formData.discountCode}
+                        name="promoCode"
+                        value={formData.promoCode}
                         onChange={handleChange}
-                        id="discountCode"
+                        id="promoCode"
                         className=" border-2 bg-transparent border-white md:text-2xl text-white placeholder:text-white  rounded-lg block  md:p-2.5"
                         placeholder="Discount Code"
                         required=""
@@ -184,7 +326,10 @@ const Pay = () => {
                     </div>
 
                     <div className="flex w-full justify-center items-center  text-[#4b214c] font-bold md:text-3xl">
-                      <button className="mx-auto md:mt-8 md:p-3 p-2 rounded-md bg-white">
+                      <button
+                        onClick={applyPromoCode}
+                        className="mx-auto md:mt-8 md:p-3 p-2 rounded-md bg-white"
+                      >
                         Apply
                       </button>
                     </div>
@@ -200,25 +345,24 @@ const Pay = () => {
                       </p>
                     </div>
                   </div>
+
                   <div>
-                    <div className="flex my-3">
-                      <label className="text-2xl leading-tight tracking-widest  ">
-                        Tax-Fee
-                      </label>
-                      <p className="text-2xl leading-tight tracking-widest  "></p>
-                    </div>
-                  </div>
-                  <div>
+                    <div
+                      className=" border-2 bg-transparent border-white md:text-2xl text-white placeholder:text-white  rounded-lg flex w-full md:p-2.5">
+
                     <label
                       name="total"
                       id="total"
-                      className=" border-2 bg-transparent border-white md:text-2xl text-white placeholder:text-white  rounded-lg block w-full md:p-2.5"
                       placeholder="Total"
                       required=""
-                    >
-                      Total:
+                      >
+                      Total: 
                     </label>
+                    <p className="text-2xl ml-auto leading-tight tracking-widest  ">
+                        {formData.total}
+                      </p>
                   </div>
+                      </div>
                   <div className="flex mt-5">
                     <input
                       type="radio"
@@ -237,7 +381,10 @@ const Pay = () => {
                       name="payment"
                       className="mr-2"
                     />
-                    <img src="/Stripe_logo.png" className="w-30 bg-gray-600 rounded-lg h-10" />
+                    <img
+                      src="/Stripe_logo.png"
+                      className="w-30 bg-gray-600 rounded-lg h-10"
+                    />
                   </div>
                   <div className="flex w-full justify-center items-center  text-[#4b214c] font-bold text-3xl">
                     <button

@@ -116,7 +116,7 @@ const SignUp = () => {
           </div>
 
       <div className="">
-        <div className="flex flex-col opacity-80  items-center justify-center py-36 px-6 md:py-8 mx-auto md:h-screen lg:py-0">
+        <div className="flex flex-col opacity-80  items-center justify-center py-5 px-6 md:py-8 mx-auto md:h-screen lg:py-0">
           <div className="w-full bg-transparent border-2 border-white text-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
               <h1 className="text-xl font-bold leading-tight tracking-tight  md:text-2xl ">
@@ -237,11 +237,11 @@ const SignUp = () => {
                 >
                   Sign Up
                 </button>
-                <p className="text-sm font-bold text-white ">
+                <p className="text-lg font-bold text-white ">
                   Already have an account .{" "}
                   <Link
                     href="/signIn"
-                    className="font-extrabold text-2xl text-yellow-700 underline hover:underline dark:text-blue-500"
+                    className="font-extrabold text-2xl text-red-900 bg-gray-50 rounded-md underline hover:underline dark:text-blue-500"
                   >
                     Sign In
                   </Link>

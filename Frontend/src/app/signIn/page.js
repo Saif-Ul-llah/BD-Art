@@ -32,14 +32,31 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    getSession().then((session) => {
-      if (session) {
-        router.replace("/home");
-      } else {
+    getSession().then( async(session) => {
+      // signIn('google');
+    if (session) {
+      const userInfo = {
+        email: session.user.email,
+        user_name: session.user.name,
+      };
+
+      try {
+        // Call the backend API to add the user to MongoDB
+      const response =  await axios.post("/addGoogleUser", userInfo);
+
+        localStorage.setItem("UserData", JSON.stringify(response.data)),
+        console.log("User data stored in localStorage:", response.data);
+        // Redirect the user to the home page
+        router.push("/home");
+      } catch (error) {
+        console.log(`Error adding Google user: ${error.message}`);
+        // Handle error appropriately (e.g., show an error message)
+      }
+    } else {
         setIsLoading(false);
       }
     });
-  }, [status]);
+  }, []);
 
   if (isLoading) {
     return <Loader />;
@@ -47,11 +64,11 @@ const Login = () => {
 
   const handleSignIn = async (e) => {
     e.preventDefault();
-    // console.log(formData.email,formData.password)
+
     try {
       let bodyformData = new FormData();
       bodyformData.append("userEmail", formData.email);
-      bodyformData.append("userPass", formData.password);
+      bodyformData.append("password", formData.password);
 
       axios({
         method: "post",
@@ -82,11 +99,12 @@ const Login = () => {
       console.log(error.message);
     }
   };
-  return (
-    <div>
-      {session ? (
-        router.push("/home")
-      ) : (
+
+  const handleGoogleLogin = async () => {
+    signIn('google');
+  }
+    return (
+      <div>
         <div>
           <div>
             <Image
@@ -95,8 +113,7 @@ const Login = () => {
               alt="image"
             />
           </div>
-
-          <div className="">
+          <div>
             <div className="flex flex-col opacity-80  items-center justify-center px-6 md:py-8 mx-auto md:h-screen lg:py-0">
               <div className="w-full bg-transparent border-2 border-white text-white rounded-lg shadow dark:border mt-8 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
                 <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
@@ -140,9 +157,6 @@ const Login = () => {
                         required=""
                       />
                     </div>
-                    {/* <div className="flex items-center justify-between">
-                 <a href="#" className="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500">Forgot password?</a>
-               </div> */}
                     <button
                       type="submit"
                       onClick={handleSignIn}
@@ -152,7 +166,7 @@ const Login = () => {
                     </button>
                     <div
                       className="w-full flex font-medium rounded-lg cursor-pointer bg-gray-700 text-sm px-5 py-2.5 text-center"
-                      onClick={() => signIn("google")}
+                      onClick={handleGoogleLogin}
                     >
                       <FcGoogle className="w-5 h-5 md:mr-16 ml-4" /> Continue
                       With Google
@@ -161,7 +175,7 @@ const Login = () => {
                       Don’t have an account yet?{" "}
                       <Link
                         href="/signUp"
-                        className="font-extrabold text-2xl text-yellow-700 underline hover:underline dark:text-blue-500"
+                        className="font-extrabold text-2xl text-red-900 bg-gray-50 rounded-md underline hover:underline dark:text-blue-500"
                       >
                         Sign up
                       </Link>
@@ -172,9 +186,9 @@ const Login = () => {
             </div>
           </div>
         </div>
-      )}
-    </div>
-  );
+      </div>
+    );
+  // }
 };
 
 export default Login;
