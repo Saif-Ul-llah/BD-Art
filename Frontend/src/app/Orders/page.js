@@ -7,8 +7,7 @@ import Link from "next/link";
 import MineLoader from "../components/mineloader";
 
 const Order = () => {
-  let userData = JSON.parse(localStorage.getItem("UserData"));
-  let userId = userData._id;
+ 
   const [cartOpen, setCartOpen] = useState(false);
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -21,6 +20,8 @@ const Order = () => {
   };
 
   useEffect(() => {
+    let userData = JSON.parse(localStorage.getItem("UserData"));
+    let userId = userData._id;
     // Fetch orders when the component mounts
     const fetchOrders = async () => {
       try {

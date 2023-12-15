@@ -16,6 +16,7 @@ const PreMadeArt = () => {
   const [userId, setUserId] = useState(null);
   const [modal, setModal] = useState(false);
   const [productDetail, setProductDetail] = useState(null);
+  
   useEffect(() => {
     const fetchPreMadeArt = async () => {
       try {
