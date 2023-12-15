@@ -14,18 +14,17 @@ export default function Cart({ open, onClose }) {
   const [subtotal, setSubtotal] = useState(0);
   const [id, setId] = useState({});
 
-  
   const fetchCartItems = async () => {
     try {
-      let ide = JSON.parse(localStorage.getItem("UserData"))||{};
+      let ide = JSON.parse(localStorage.getItem("UserData")) || {};
       const userId = ide._id;
       // console.log(userId);
-     if(userId){
-      const response = await axios.get(`/get-cart-items/${userId}`);
-      const data = await response.data;
-      setCartItems(data.cartItems);
-      localStorage.setItem("CartData", JSON.stringify(data.cartItems));
-     }
+      if (userId) {
+        const response = await axios.get(`/get-cart-items/${userId}`);
+        const data = await response.data;
+        setCartItems(data.cartItems);
+        localStorage.setItem("CartData", JSON.stringify(data.cartItems));
+      }
     } catch (error) {
       console.error("Error fetching cart items:", error.message);
     }
@@ -152,13 +151,15 @@ export default function Cart({ open, onClose }) {
                                     <p className="text-gray-500">
                                       <b>Selected Options :</b>{" "}
                                       <ul>
-                                        {Object.entries(
-                                          item.selectedOptions
-                                        ).map(([key, value]) => (
-                                          <li key={key}>
-                                            {key}: {value}
-                                          </li>
-                                        ))}
+                                        {item.selectedOptions
+                                          ? Object.entries(
+                                              item.selectedOptions
+                                            ).map(([key, value]) => (
+                                              <li key={key}>
+                                                {key}: {value}
+                                              </li>
+                                            ))
+                                          : null}
                                       </ul>
                                     </p>
 
