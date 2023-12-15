@@ -209,7 +209,7 @@ const Product = (params) => {
   };
 
   return (
-    <div className="flex flex-col w-screen h-screen  md:overflow-hidden">
+    <div className="flex flex-col w-screen md:h-screen  md:overflow-hidden" >
       <div>
         <Image src={bg} className="w-full absolute -z-10  h-full" alt="image" />
       </div>
@@ -228,11 +228,11 @@ const Product = (params) => {
             </div>
           </div>
         {/* Price */}
-          <div className="text-center w-full text-white my-4 text-5xl ">
+          <div className="text-center w-full text-white my-4 text-5xl mb-10 md:mb-0 ">
             Price $ {productDetail.price}{" "}
           </div>
           
-          <div className="flex  w-full md:-mt-3">
+          <div className="flex  w-full  md:-mt-3">
             <div className="md:flex md:w-full justify-center items-center">        
         {/* Animation */}
                 <div className="-mt-10">
@@ -377,7 +377,7 @@ const Product = (params) => {
                       Add Description
                     </div>
                     <textarea
-                      className="md:w-64 w-full text-xl mx-auto text-white border-2 border-white rounded-lg bg-opacity-30 m-4"
+                      className="md:w-64 w-full text-xl mx-auto  border-2 border-white rounded-lg bg-opacity-30 m-4"
                       onChange={handleDescriptionChange}
                     />
                   </div>
