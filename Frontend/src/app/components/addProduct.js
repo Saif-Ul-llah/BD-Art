@@ -16,9 +16,9 @@ const AddProduct = () => {
     category: "",
     Background: {}, // Initialize optional fields as empty objects
     animation: {},
-    Character_Proportion: {},
+    "Character Proportion": {},
     Rigging: {},
-    Overlay_Type: {},
+    "Overlay Type": {},
   });
 
   const openModal = () => {
@@ -74,9 +74,9 @@ const AddProduct = () => {
     if (
       name == "Background" ||
       name == "animation" ||
-      name == "Character_Proportion" ||
+      name == "Character Proportion" ||
       name == "Rigging" ||
-      name == "Overlay_Type"
+      name == "Overlay Type"
     ) {
       setFormData({
         ...formData,
@@ -129,9 +129,9 @@ const AddProduct = () => {
       const optionalFieldNames = [
         "Background",
         "animation",
-        "Character_Proportion",
+        "Character Proportion",
         "Rigging",
-        "Overlay_Type",
+        "Overlay Type",
       ];
   
       optionalFieldNames.forEach((fieldName) => {
@@ -351,7 +351,7 @@ const AddProduct = () => {
               <input
                 type="checkbox"
                 id="Chibbi"
-                name="Emote_style"
+                name="Emote style"
                 value="Chibbi"
                 // checked={formData.Emote_style.includes("Chibbi")} // Uncomment and modify accordingly
                 onChange={handleInputChange}
@@ -365,7 +365,7 @@ const AddProduct = () => {
               <input
                 type="checkbox"
                 id="Anime"
-                name="Emote_style"
+                name="Emote style"
                 value="Anime"
                 // checked={formData.Emote_style.includes("Anime")} // Uncomment and modify accordingly
                 onChange={handleInputChange}
@@ -493,7 +493,7 @@ const AddProduct = () => {
               <input
                 type="checkbox"
                 id="headshot"
-                name="Character_Proportion"
+                name="Character Proportion"
                 value="Headshot"
                 // checked={formData.Animation.includes("Yes")} // Uncomment and modify accordingly
                 onChange={handleInputChange}
@@ -503,9 +503,9 @@ const AddProduct = () => {
 
               <input
                 type="checkbox"
-                id="Half_Body"
-                name="Character_Proportion"
-                value="Half_Body"
+                id="Half Body"
+                name="Character Proportion"
+                value="Half Body"
                 // checked={formData.Animation.includes("No")} // Uncomment and modify accordingly
                 onChange={handleInputChange}
                 className="mr-2"
@@ -514,14 +514,14 @@ const AddProduct = () => {
 
               <input
                 type="checkbox"
-                id="Full_Body"
-                name="Character_Proportion"
-                value="Full_Body"
+                id="Full Body"
+                name="Character Proportion"
+                value="Full Body"
                 // checked={formData.Animation.includes("No")} // Uncomment and modify accordingly
                 onChange={handleInputChange}
                 className="mr-2"
               />
-              <label className="mr-4">Full_Body</label>
+              <label className="mr-4">Full Body</label>
             </div>
           </div>
 
@@ -676,7 +676,7 @@ const AddProduct = () => {
               <input
                 type="checkbox"
                 id="headshot"
-                name="Character_Proportion"
+                name="Character Proportion"
                 value="Headshot"
                 // checked={formData.Animation.includes("Yes")} // Uncomment and modify accordingly
                 onChange={handleInputChange}
@@ -685,8 +685,8 @@ const AddProduct = () => {
               <label className="mr-4">Headshot</label>
               <input
                 type="checkbox"
-                id="Half_Body"
-                name="Character_Proportion"
+                id="Half Body"
+                name="Character Proportion"
                 value="Half_Body"
                 // checked={formData.Animation.includes("No")} // Uncomment and modify accordingly
                 onChange={handleInputChange}
@@ -696,14 +696,14 @@ const AddProduct = () => {
 
               <input
                 type="checkbox"
-                id="Full_Body"
-                name="Character_Proportion"
-                value="Full_Body"
+                id="Full Body"
+                name="Character Proportion"
+                value="Full Body"
                 // checked={formData.Animation.includes("No")} // Uncomment and modify accordingly
                 onChange={handleInputChange}
                 className="mr-2"
               />
-              <label className="mr-4">Full_Body</label>
+              <label className="mr-4">Full Body</label>
             </div>
           </div>
         </div>
@@ -782,71 +782,71 @@ const AddProduct = () => {
             <div className="">
               <input
                 type="checkbox"
-                id="Cam_Overlay"
-                name="Overlay_Type"
-                value="Cam_Overlay"
+                id="Cam Overlay"
+                name="Overlay Type"
+                value="Cam Overlay"
                 // checked={formData.Animation.includes("Yes")} // Uncomment and modify accordingly
                 onChange={handleInputChange}
                 className="mr-2"
               />
-              <label htmlFor="Cam_Overlay" className="mr-4">
-                Cam_Overlay
+              <label htmlFor="Cam Overlay" className="mr-4">
+                Cam Overlay
               </label>
               <br />
 
               <input
                 type="checkbox"
-                id="Chat_Overlay"
-                name="Overlay_Type"
-                value="Chat_Overlay"
+                id="Chat Overlay"
+                name="Overlay Type"
+                value="Chat Overlay"
                 // checked={formData.Animation.includes("Yes")} // Uncomment and modify accordingly
                 onChange={handleInputChange}
                 className="mr-2"
               />
-              <label htmlFor="Chat_Overlay" className="mr-4">
-                Chat_Overlay
+              <label htmlFor="Chat Overlay" className="mr-4">
+                Chat Overlay
               </label>
               <br />
 
               <input
                 type="checkbox"
-                id="Full_Stream_Package"
-                name="Overlay_Type"
-                value="Full_Stream_Package"
+                id="Full Stream Package"
+                name="Overlay Type"
+                value="Full Stream Package"
                 // checked={formData.Animation.includes("Yes")} // Uncomment and modify accordingly
                 onChange={handleInputChange}
                 className="mr-2"
               />
-              <label htmlFor="Full_Stream_Package" className="mr-4">
-                Full_Stream_Package
+              <label htmlFor="Full Stream Package" className="mr-4">
+                Full Stream Package
               </label>
               <br />
 
               <input
                 type="checkbox"
-                id="Stream_Overlay"
-                name="Overlay_Type"
-                value="Stream_Overlay"
+                id="Stream Overlay"
+                name="Overlay Type"
+                value="Stream Overlay"
                 // checked={formData.Animation.includes("Yes")} // Uncomment and modify accordingly
                 onChange={handleInputChange}
                 className="mr-2"
               />
-              <label htmlFor="Stream_Overlay" className="mr-4">
-                Stream_Overlay
+              <label htmlFor="Stream Overlay" className="mr-4">
+                Stream Overlay
               </label>
               <br />
 
               <input
                 type="checkbox"
-                id="Stream_Screens"
-                name="Overlay_Type"
-                value="Stream_Screens"
+                id="Stream Screens"
+                name="Overlay Type"
+                value="Stream Screens"
                 // checked={formData.Animation.includes("Yes")} // Uncomment and modify accordingly
                 onChange={handleInputChange}
                 className="mr-2"
               />
-              <label htmlFor="Stream_Screens" className="mr-4">
-                Stream_Screens
+              <label htmlFor="Stream Screens" className="mr-4">
+                Stream Screens
               </label>
               <br />
             </div>

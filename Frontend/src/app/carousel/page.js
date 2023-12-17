@@ -80,7 +80,7 @@ const CustomCarousel = () => {
       <Navbar openCart={openCart} />
       <Cart open={cartOpen} onClose={closeCart} />
 
-      <div className="md:flex md:flex-col md:mx-auto md:justify-center md:items-center mt-14">
+      <div className="md:flex md:flex-col md:mx-auto md:justify-center md:items-center mt-20 md:mt-12">
         <div className="md:w-9/12">
           <div className="carousel-container cursor-pointer">
             {!loading && (
