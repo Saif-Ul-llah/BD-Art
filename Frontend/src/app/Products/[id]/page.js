@@ -293,7 +293,7 @@ const Product = (params) => {
                 {productDetail.Character_Proportion && (
                   <div className="md:w-1/3 mx-6 ">
                     <div className="border-2 border-white rounded-lg bg-opacity-30 p-1 md:w-64 text-center text-white md:text-3xl">
-                      Character_Proportion:
+                      Character Proportion:
                     </div>
                     <div className="w-full mx-auto text-white">
                       {Object.entries(productDetail.Character_Proportion).map(
@@ -347,7 +347,7 @@ const Product = (params) => {
                 {productDetail.Overlay_Type && (
                   <div className="md:w-1/3 mx-6 ">
                     <div className="border-2 border-white rounded-lg bg-opacity-30 p-1 md:w-64 text-center text-white md:text-3xl">
-                      Overlay_Type:
+                      Overlay Type:
                     </div>
                     <div className="w-full mx-auto text-white">
                       {Object.entries(productDetail.Overlay_Type).map(

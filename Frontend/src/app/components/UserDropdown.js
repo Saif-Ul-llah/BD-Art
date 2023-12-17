@@ -23,8 +23,8 @@ const UserDropdown = () => {
   return (
     <div className="relative inline-block text-left">
       <div>
-        <button type="button" onClick={toggleDropdown} className=" flex">
-          <BsPerson /><div className="md:hidden">Login / Register</div>
+        <button type="button" onClick={toggleDropdown} className="flex ml-3 md:ml-0">
+          <BsPerson className="hidden md:block"/><div className="md:hidden">Login / Register</div>
         </button>
       </div>
 
