@@ -46,6 +46,7 @@ const Product = (params) => {
         const data = response.data;
         if (isMounted.current) {
           setProductDetail(data);
+          // console.log(data);
           setLoading(false);
         }
       } catch (error) {
@@ -69,84 +70,266 @@ const Product = (params) => {
     setUserId(userData);
   }, []);
   const IfPrice = (name, value) => {
-    if (name === "Background" && value === "Yes" && !Executed.Background) {
-      // Update the price in the productDetail object
-      setProductDetail({ ...productDetail, price: productDetail.price + 200 });
-      setExecuted({ ...Executed, Background: true });
-    } else if (name === "Background" && value === "No" && Executed.Background) {
-      setProductDetail({ ...productDetail, price: productDetail.price - 200 });
-      // setConditionExecuted(false);
-      setExecuted({ ...Executed, Background: false });
+    if (
+      productDetail.category == "Anime" ||
+      productDetail.category == "DND_Character" ||
+      productDetail.category == "OC_Art" ||
+      productDetail.category == "Furry"
+    ) {
+      if (name === "Character Proportion" && !Executed.Character_Proportion) {
+        if (value == "Half Body") {
+          setProductDetail({
+            ...productDetail,
+            price: productDetail.price + 250,
+          });
+        } else if (value == "Full Body") {
+          setProductDetail({
+            ...productDetail,
+            price: productDetail.price + 350,
+          });
+        } else if (value == "Headshot") {
+          setProductDetail({
+            ...productDetail,
+            price: productDetail.price + 150,
+          });
+        }
+        setExecuted({ ...Executed, Character_Proportion: true });
+      }
+
+      if (name === "Background" && value === "Yes" && !Executed.Background) {
+        // Update the price in the productDetail object
+        setProductDetail({
+          ...productDetail,
+          price: productDetail.price + 130,
+        });
+        setExecuted({ ...Executed, Background: true });
+      } else if (
+        name === "Background" &&
+        value === "No" &&
+        Executed.Background
+      ) {
+        setProductDetail({
+          ...productDetail,
+          price: productDetail.price - 130,
+        });
+        // setConditionExecuted(false);
+        setExecuted({ ...Executed, Background: false });
+      }
+
+      if (name === "animation" && value === "Yes" && !Executed.animation) {
+        // Update the price in the productDetail object
+        setProductDetail({
+          ...productDetail,
+          price: productDetail.price + 300,
+        });
+        setExecuted({ ...Executed, animation: true });
+      } else if (name === "animation" && value === "No" && Executed.animation) {
+        setProductDetail({
+          ...productDetail,
+          price: productDetail.price - 300,
+        });
+        // setConditionExecuted(false);
+
+        setExecuted({ ...Executed, animation: false });
+      }
     }
+
+    if(productDetail.category=="Vtuber"){
+      if (name === "Character Proportion" && !Executed.Character_Proportion) {
+        if (value == "Half Body") {
+          setProductDetail({
+            ...productDetail,
+            price: productDetail.price + 400,
+          });
+        } else if (value == "Full Body") {
+          setProductDetail({
+            ...productDetail,
+            price: productDetail.price + 550,
+          });
+        } else if (value == "Headshot") {
+          setProductDetail({
+            ...productDetail,
+            price: productDetail.price + 250,
+          });
+        }
+        setExecuted({ ...Executed, Character_Proportion: true });
+      }
+
+      if (name === "Background" && value === "Yes" && !Executed.Background) {
+        // Update the price in the productDetail object
+        setProductDetail({
+          ...productDetail,
+          price: productDetail.price + 150,
+        });
+        setExecuted({ ...Executed, Background: true });
+      } else if (
+        name === "Background" &&
+        value === "No" &&
+        Executed.Background
+      ) {
+        setProductDetail({
+          ...productDetail,
+          price: productDetail.price - 150,
+        });
+        // setConditionExecuted(false);
+        setExecuted({ ...Executed, Background: false });
+      }
+      if (name === "Rigging" && value === "Yes" && !Executed.Rigging) {
+        // Update the price in the productDetail object
+        setProductDetail({ ...productDetail, price: productDetail.price + 700 });
+        setExecuted({ ...Executed, Rigging: true });
+      } else if (name === "Rigging" && value === "No" && Executed.Rigging) {
+        setProductDetail({ ...productDetail, price: productDetail.price - 700 });
+        // setConditionExecuted(false);
+        setExecuted({ ...Executed, Rigging: false });
+      }
+    }
+
+    if(productDetail.category == "Overlay"||productDetail.category == "Background"){
+
     if (name === "animation" && value === "Yes" && !Executed.animation) {
       // Update the price in the productDetail object
-      setProductDetail({ ...productDetail, price: productDetail.price + 200 });
+      setProductDetail({ ...productDetail, price: productDetail.price + 400 });
       setExecuted({ ...Executed, animation: true });
     } else if (name === "animation" && value === "No" && Executed.animation) {
-      setProductDetail({ ...productDetail, price: productDetail.price - 200 });
+      setProductDetail({ ...productDetail, price: productDetail.price - 400 });
       // setConditionExecuted(false);
 
       setExecuted({ ...Executed, animation: false });
     }
-    if (name === "Rigging" && value === "Yes" && !Executed.Rigging) {
-      // Update the price in the productDetail object
-      setProductDetail({ ...productDetail, price: productDetail.price + 200 });
-      setExecuted({ ...Executed, Rigging: true });
-    } else if (name === "Rigging" && value === "No" && Executed.Rigging) {
-      setProductDetail({ ...productDetail, price: productDetail.price - 200 });
-      // setConditionExecuted(false);
-      setExecuted({ ...Executed, Rigging: false });
     }
-    if (name === "Overlay_Type" && !Executed.Overlay_Type) {
-      if(value==="Cam_Overlay"){
-        setProductDetail({ ...productDetail, price: productDetail.price + 200 });
-      }else if(value==="Chat_Overlay"){
-        setProductDetail({ ...productDetail, price: productDetail.price + 200 });
-      }
-      else if(value==="Full_Stream_Package"){
-        setProductDetail({ ...productDetail, price: productDetail.price + 200 });
-      } else if(value==="Stream_Overlay"){
-        setProductDetail({ ...productDetail, price: productDetail.price + 200 });
-      }else if(value==="Stream_Screens"){
-        setProductDetail({ ...productDetail, price: productDetail.price + 200 });
-      }
 
+    if(productDetail.category=="PNG_Tuber"){
+      if (name === "Character Proportion" && !Executed.Character_Proportion) {
+        if (value == "Half Body") {
+          setProductDetail({
+            ...productDetail,
+            price: productDetail.price + 250,
+          });
+        } else if (value == "Full Body") {
+          setProductDetail({
+            ...productDetail,
+            price: productDetail.price + 350,
+          });
+        } else if (value == "Headshot") {
+          setProductDetail({
+            ...productDetail,
+            price: productDetail.price + 150,
+          });
+        }
+        setExecuted({ ...Executed, Character_Proportion: true });
+      }
+  
+    }
 
-      setExecuted({ ...Executed, Overlay_Type: true });
-    } 
-    if (name === "Character_Proportion" && !Executed.Character_Proportion) {
-      if (value == "Half_Body") {
-        setProductDetail({
-          ...productDetail,
-          price: productDetail.price + 200,
-        });
-      } else if (value == "Full_Body") {
-        setProductDetail({
-          ...productDetail,
-          price: productDetail.price + 200,
-        });
-      } else if (value == "Headshot") {
-        setProductDetail({
-          ...productDetail,
-          price: productDetail.price + 200,
-        });
+    if(productDetail.category == "Emote"){
+      if (name === "animation" && value === "Yes" && !Executed.animation) {
+        // Update the price in the productDetail object
+        setProductDetail({ ...productDetail, price: productDetail.price + 90 });
+        setExecuted({ ...Executed, animation: true });
+      } else if (name === "animation" && value === "No" && Executed.animation) {
+        setProductDetail({ ...productDetail, price: productDetail.price - 90 });
+        // setConditionExecuted(false);
+  
+        setExecuted({ ...Executed, animation: false });
       }
-      setExecuted({ ...Executed, Character_Proportion: true });
     }
-    if (name === "Emote" && !Executed.Emote) {
-      if (value == "Anime") {
-        setProductDetail({
-          ...productDetail,
-          price: productDetail.price + 200,
-        });
-      } else if (value == "Chibbi") {
-        setProductDetail({
-          ...productDetail,
-          price: productDetail.price + 200,
-        });
-      }
-      setExecuted({ ...Executed, Emote: true });
-    }
+
+    // if (name === "Background" && value === "Yes" && !Executed.Background) {
+    //   // Update the price in the productDetail object
+    //   setProductDetail({ ...productDetail, price: productDetail.price + 200 });
+    //   setExecuted({ ...Executed, Background: true });
+    // } else if (name === "Background" && value === "No" && Executed.Background) {
+    //   setProductDetail({ ...productDetail, price: productDetail.price - 200 });
+    //   // setConditionExecuted(false);
+    //   setExecuted({ ...Executed, Background: false });
+    // }
+
+    // if (name === "animation" && value === "Yes" && !Executed.animation) {
+    //   // Update the price in the productDetail object
+    //   setProductDetail({ ...productDetail, price: productDetail.price + 200 });
+    //   setExecuted({ ...Executed, animation: true });
+    // } else if (name === "animation" && value === "No" && Executed.animation) {
+    //   setProductDetail({ ...productDetail, price: productDetail.price - 200 });
+    //   // setConditionExecuted(false);
+
+    //   setExecuted({ ...Executed, animation: false });
+    // }
+
+    // if (name === "Rigging" && value === "Yes" && !Executed.Rigging) {
+    //   // Update the price in the productDetail object
+    //   setProductDetail({ ...productDetail, price: productDetail.price + 200 });
+    //   setExecuted({ ...Executed, Rigging: true });
+    // } else if (name === "Rigging" && value === "No" && Executed.Rigging) {
+    //   setProductDetail({ ...productDetail, price: productDetail.price - 200 });
+    //   // setConditionExecuted(false);
+    //   setExecuted({ ...Executed, Rigging: false });
+    // }
+
+    // if (name === "Overlay Type" && !Executed.Overlay_Type) {
+    //   if (value === "Cam Overlay") {
+    //     setProductDetail({
+    //       ...productDetail,
+    //       price: productDetail.price + 200,
+    //     });
+    //   } else if (value === "Chat Overlay") {
+    //     setProductDetail({
+    //       ...productDetail,
+    //       price: productDetail.price + 200,
+    //     });
+    //   } else if (value === "Full Stream Package") {
+    //     setProductDetail({
+    //       ...productDetail,
+    //       price: productDetail.price + 200,
+    //     });
+    //   } else if (value === "Stream Overlay") {
+    //     setProductDetail({
+    //       ...productDetail,
+    //       price: productDetail.price + 200,
+    //     });
+    //   } else if (value === "Stream Screens") {
+    //     setProductDetail({
+    //       ...productDetail,
+    //       price: productDetail.price + 200,
+    //     });
+    //   }
+    //   setExecuted({ ...Executed, Overlay_Type: true });
+    // }
+
+    // if (name === "Character Proportion" && !Executed.Character_Proportion) {
+    //   if (value == "Half Body") {
+    //     setProductDetail({
+    //       ...productDetail,
+    //       price: productDetail.price + 200,
+    //     });
+    //   } else if (value == "Full Body") {
+    //     setProductDetail({
+    //       ...productDetail,
+    //       price: productDetail.price + 200,
+    //     });
+    //   } else if (value == "Headshot") {
+    //     setProductDetail({
+    //       ...productDetail,
+    //       price: productDetail.price + 200,
+    //     });
+    //   }
+    //   setExecuted({ ...Executed, Character_Proportion: true });
+    // }
+
+    // if (name === "Emote" && !Executed.Emote) {
+    //   if (value == "Anime") {
+    //     setProductDetail({
+    //       ...productDetail,
+    //       price: productDetail.price + 200,
+    //     });
+    //   } else if (value == "Chibbi") {
+    //     setProductDetail({
+    //       ...productDetail,
+    //       price: productDetail.price + 200,
+    //     });
+    //   }
+    //   setExecuted({ ...Executed, Emote: true });
+    // }
   };
   const handleOptionChange = (event) => {
     const { name, value } = event.target;
@@ -209,9 +392,13 @@ const Product = (params) => {
   };
 
   return (
-    <div className="flex flex-col w-screen md:h-screen  md:overflow-hidden" >
+    <div className="flex bg-[#170D18] md:bg-transparent flex-col w-screen md:h-screen  md:overflow-hidden">
       <div>
-        <Image src={bg} className="w-full absolute -z-10  h-full" alt="image" />
+        <Image
+          src={bg}
+          className="w-full absolute -z-10  h-full "
+          alt="image"
+        />
       </div>
       <Navbar openCart={openCart} />
       <Cart open={cartOpen} onClose={closeCart} />
@@ -221,47 +408,47 @@ const Product = (params) => {
         </div>
       ) : (
         <div className="">
-        {/*  Name */}
+          {/*  Name */}
           <div className="flex border-4 w-1/2 rounded-2xl bg-white bg-opacity-20 border-white mx-auto md:h-44 h-24">
             <div className="md:text-8xl text-2xl m-auto text-white p-2 ">
               {productDetail.name}
             </div>
           </div>
-        {/* Price */}
+          {/* Price */}
           <div className="text-center w-full text-white my-4 text-5xl mb-10 md:mb-0 ">
             Price $ {productDetail.price}{" "}
           </div>
-          
-          <div className="flex  w-full  md:-mt-3">
-            <div className="md:flex md:w-full justify-center items-center">        
-        {/* Animation */}
-                <div className="-mt-10">
-                  {productDetail.animation && (
-                    <div className="md:w-1/3 mx-6">
-                      <div className="border-2 border-white rounded-lg bg-opacity-30 p-1 md:w-36 text-center text-white md:text-3xl">
-                        Animation:
-                      </div>
-                      <div className=" w-full mx-auto text-white">
-                        {Object.entries(productDetail.animation).map(
-                          ([key, value]) =>
-                            value ? (
-                              <div key={key} className="flex">
-                                <input
-                                  type="radio"
-                                  value={value}
-                                  name="animation"
-                                  className="m-3"
-                                  onChange={handleOptionChange}
-                                />
-                                <div className="m-3">{value}</div>
-                              </div>
-                            ) : null
-                        )}
-                      </div>
+
+          <div className="flex  w-full  md:-mt-3 ">
+            <div className="md:flex md:w-full justify-center items-center">
+              {/* Animation */}
+              <div className="-mt-10">
+                {productDetail.animation && (
+                  <div className="md:w-1/3 mx-6">
+                    <div className="border-2 border-white rounded-lg bg-opacity-30 p-1 md:w-36 text-center text-white md:text-3xl">
+                      Animation:
                     </div>
-                  )}
-                </div>
-        {/* Background */}
+                    <div className=" w-full mx-auto text-white">
+                      {Object.entries(productDetail.animation).map(
+                        ([key, value]) =>
+                          value ? (
+                            <div key={key} className="flex">
+                              <input
+                                type="radio"
+                                value={value}
+                                name="animation"
+                                className="m-3"
+                                onChange={handleOptionChange}
+                              />
+                              <div className="m-3">{value}</div>
+                            </div>
+                          ) : null
+                      )}
+                    </div>
+                  </div>
+                )}
+              </div>
+              {/* Background */}
               <div>
                 {productDetail.Background && (
                   <div className="md:w-1/3 mx-6">
@@ -288,7 +475,7 @@ const Product = (params) => {
                   </div>
                 )}
               </div>
-       {/* Character_Proportion */}
+              {/* Character_Proportion */}
               <div>
                 {productDetail.Character_Proportion && (
                   <div className="md:w-1/3 mx-6 ">
@@ -315,7 +502,7 @@ const Product = (params) => {
                   </div>
                 )}
               </div>
-        {/* Rigging */}
+              {/* Rigging */}
               <div>
                 {productDetail.Rigging && (
                   <div className="md:w-1/3 mx-6">
@@ -342,7 +529,7 @@ const Product = (params) => {
                   </div>
                 )}
               </div>
-        {/* Overlay_Type */}
+              {/* Overlay_Type */}
               <div>
                 {productDetail.Overlay_Type && (
                   <div className="md:w-1/3 mx-6 ">
@@ -369,7 +556,7 @@ const Product = (params) => {
                   </div>
                 )}
               </div>
-        {/* Add Description and refence image */}
+              {/* Add Description and refence image */}
               <div>
                 <div className="mx-6">
                   <div>
