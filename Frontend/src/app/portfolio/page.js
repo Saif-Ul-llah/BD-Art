@@ -68,49 +68,49 @@ const PortfolioCards = () => {
           <div className="flex flex-wrap text-white w-full md:grid-cols-3 md:gap-14 gap-8 justify-center ">
             <div
               onClick={() => handleCategoryChange("Anime")}
-              className="flex cursor-pointer w-60 h-20 border-2 border-white justify-center items-center text-4xl"
+              className="flex cursor-pointer md:w-60  w-32 h-20 border-2 border-white justify-center items-center md:text-4xl text-xl"
             >
               Anime
             </div>
             <div
               onClick={() => handleCategoryChange("Emote")}
-              className="flex cursor-pointer w-60 h-20 border-2 border-white justify-center items-center text-4xl"
+              className="flex cursor-pointer md:w-60  w-32 h-20 border-2 border-white justify-center items-center md:text-4xl text-xl"
             >
               Emote
             </div>
             <div
               onClick={() => handleCategoryChange("Vtuber")}
-              className="flex cursor-pointer w-60 h-20 border-2 border-white justify-center items-center text-4xl"
+              className="flex cursor-pointer md:w-60  w-32 h-20 border-2 border-white justify-center items-center md:text-4xl text-xl"
             >
               Vtuber
             </div>
             <div
               onClick={() => handleCategoryChange("Overlay")}
-              className="flex cursor-pointer w-60 h-20 border-2 border-white justify-center items-center text-4xl"
+              className="flex cursor-pointer md:w-60  w-32 h-20 border-2 border-white justify-center items-center md:text-4xl text-xl"
             >
               Overlay
             </div>
             <div
               onClick={() => handleCategoryChange("Background")}
-              className="flex cursor-pointer w-60 h-20 border-2 border-white justify-center items-center text-4xl"
+              className="flex cursor-pointer md:w-60  w-32 h-20 border-2 border-white justify-center items-center md:text-4xl text-xl"
             >
               Background
             </div>
             <div
               onClick={() => handleCategoryChange("DND_Character")}
-              className="flex cursor-pointer w-60 h-20 border-2 border-white justify-center items-center text-4xl"
+              className="flex cursor-pointer md:w-60  w-32 h-20 border-2 border-white justify-center items-center md:text-4xl text-xl"
             >
               DND Character
             </div>
             <div
               onClick={() => handleCategoryChange("Furry")}
-              className="flex cursor-pointer w-60 h-20 border-2 border-white justify-center items-center text-4xl"
+              className="flex cursor-pointer md:w-60  w-32 h-20 border-2 border-white justify-center items-center md:text-4xl text-xl"
             >
               Furry
             </div>
             <div
               onClick={() => handleCategoryChange("OC_Art")}
-              className="flex cursor-pointer w-60 h-20 border-2 border-white justify-center items-center text-4xl"
+              className="flex cursor-pointer md:w-60  w-32 h-20 border-2 border-white justify-center items-center md:text-4xl text-xl"
             >
               OC Art
             </div>

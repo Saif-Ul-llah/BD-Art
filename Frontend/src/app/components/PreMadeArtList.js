@@ -77,7 +77,7 @@ const ProductList = ({ onEditClick }) => {
     <div>
     <div className="mt-8">
       <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-        All Products
+        All PreMadeArt Products
         <div className="flex justify-end items-center">
           <div className="flex space-x-4">
             <UpdateButton onClick={handleUpdateClick} />
@@ -108,7 +108,7 @@ const ProductList = ({ onEditClick }) => {
                 </div>
                 <div className="mt-2 flex space-x-2">
                 <DeleteButton onClick={() => handleDeleteClick(product._id)} />
-                  <EditButton onEdit={() => onEditClick(product)} />
+                  {/* <EditButton onEdit={() => onEditClick(product)} /> */}
                 </div>
               </div>
             </li>

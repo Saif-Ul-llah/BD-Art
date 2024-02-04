@@ -34,7 +34,7 @@ const About = () => {
         <div className="text-white w-4/5 m-auto flex flex-col justify-center items-center">
           <div className="md:text-5xl text-3xl m-4">OUR PALETTE OF PURPOSE</div>
           <div className="flex m-3">
-            AT The BD ARTS, WERE EACH PIXLE RECOUTS A STORY AND IMAGINATION HAS
+            AT THE BD ARTS, WHERE EACH PIXLE RECOUTS A STORY AND IMAGINATION HAS
             NO LIMITS. OUR COMPUTERIZED MATERIAL IS SOMETHING BEYOND A SPACE
             --IT'S AN ENERGETIC RANGE OF DIRECTION, A DOWMAIN WERE DEVLOPMENT
             AND CREATIVE MIND JOIN IN AN ENSEMBLE OF VARIETIES, SHAPES, AMD
@@ -61,17 +61,17 @@ const About = () => {
             their drams.
           </div>
 
-          <div>
-            <div className="uppercase text-3xl md:-5xl m-2">reviews us:</div>
-            <div className="w-4/5 mb-4">
+        </div>
+          <div className="w-4/5 mx-auto">
+            <div className="uppercase text-3xl md:-5xl w-40 text-white m-2 mx-auto">reviews us:</div>
+            <div className="w-full mb-4">
               <input
                 type="text"
-                className="w-full h-1/4  border-purple-950 rounded p-4"
+                className="w-full h-1/4 text-center text-black border-purple-950 rounded p-4"
                 placeholder='"WE WOULD APPERCIATE YOUR REVIEW SO THAT WE  CAN LEAN ABOUT YOUR EXPERIENCE."'
               />
             </div>
           </div>
-        </div>
 
         {/* <div className="w-screen mb-10 text-white flex flex-col"> */}
           <div className="relative w-full text-white">

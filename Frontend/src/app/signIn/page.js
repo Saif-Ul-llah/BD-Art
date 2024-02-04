@@ -168,7 +168,7 @@ const Login = () => {
                       className="w-full flex font-medium rounded-lg cursor-pointer bg-gray-700 text-sm px-5 py-2.5 text-center"
                       onClick={handleGoogleLogin}
                     >
-                      <FcGoogle className="w-5 h-5 md:mr-16 ml-4" /> Continue
+                      <FcGoogle className="w-5 h-5 mr-16 ml-4" /> Continue
                       With Google
                     </div>
                     <p className="text-sm font-bold text-white dark:text-gray-400">
