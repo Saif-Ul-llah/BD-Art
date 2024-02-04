@@ -134,7 +134,7 @@ const Product = (params) => {
       }
     }
 
-    if(productDetail.category=="Vtuber"){
+    if (productDetail.category == "Vtuber") {
       if (name === "Character Proportion" && !Executed.Character_Proportion) {
         if (value == "Half Body") {
           setProductDetail({
@@ -176,30 +176,44 @@ const Product = (params) => {
       }
       if (name === "Rigging" && value === "Yes" && !Executed.Rigging) {
         // Update the price in the productDetail object
-        setProductDetail({ ...productDetail, price: productDetail.price + 700 });
+        setProductDetail({
+          ...productDetail,
+          price: productDetail.price + 700,
+        });
         setExecuted({ ...Executed, Rigging: true });
       } else if (name === "Rigging" && value === "No" && Executed.Rigging) {
-        setProductDetail({ ...productDetail, price: productDetail.price - 700 });
+        setProductDetail({
+          ...productDetail,
+          price: productDetail.price - 700,
+        });
         // setConditionExecuted(false);
         setExecuted({ ...Executed, Rigging: false });
       }
     }
 
-    if(productDetail.category == "Overlay"||productDetail.category == "Background"){
+    if (
+      productDetail.category == "Overlay" ||
+      productDetail.category == "Background"
+    ) {
+      if (name === "animation" && value === "Yes" && !Executed.animation) {
+        // Update the price in the productDetail object
+        setProductDetail({
+          ...productDetail,
+          price: productDetail.price + 400,
+        });
+        setExecuted({ ...Executed, animation: true });
+      } else if (name === "animation" && value === "No" && Executed.animation) {
+        setProductDetail({
+          ...productDetail,
+          price: productDetail.price - 400,
+        });
+        // setConditionExecuted(false);
 
-    if (name === "animation" && value === "Yes" && !Executed.animation) {
-      // Update the price in the productDetail object
-      setProductDetail({ ...productDetail, price: productDetail.price + 400 });
-      setExecuted({ ...Executed, animation: true });
-    } else if (name === "animation" && value === "No" && Executed.animation) {
-      setProductDetail({ ...productDetail, price: productDetail.price - 400 });
-      // setConditionExecuted(false);
-
-      setExecuted({ ...Executed, animation: false });
+        setExecuted({ ...Executed, animation: false });
+      }
     }
-    }
 
-    if(productDetail.category=="PNG_Tuber"){
+    if (productDetail.category == "PNG_Tuber") {
       if (name === "Character Proportion" && !Executed.Character_Proportion) {
         if (value == "Half Body") {
           setProductDetail({
@@ -219,10 +233,9 @@ const Product = (params) => {
         }
         setExecuted({ ...Executed, Character_Proportion: true });
       }
-  
     }
 
-    if(productDetail.category == "Emote"){
+    if (productDetail.category == "Emote") {
       if (name === "animation" && value === "Yes" && !Executed.animation) {
         // Update the price in the productDetail object
         setProductDetail({ ...productDetail, price: productDetail.price + 90 });
@@ -230,7 +243,7 @@ const Product = (params) => {
       } else if (name === "animation" && value === "No" && Executed.animation) {
         setProductDetail({ ...productDetail, price: productDetail.price - 90 });
         // setConditionExecuted(false);
-  
+
         setExecuted({ ...Executed, animation: false });
       }
     }
@@ -396,7 +409,7 @@ const Product = (params) => {
       <div>
         <Image
           src={bg}
-          className="w-full absolute -z-10  h-full "
+          className="hidden md:flex w-full absolute -z-10  h-full "
           alt="image"
         />
       </div>
@@ -557,7 +570,7 @@ const Product = (params) => {
                 )}
               </div>
               {/* Add Description and refence image */}
-              <div>
+              <div className="">
                 <div className="mx-6">
                   <div>
                     <div className="border-2 border-white rounded-lg bg-opacity-30 p-1 md:w-64 text-center text-white md:text-3xl">

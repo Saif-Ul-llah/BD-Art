@@ -16,9 +16,9 @@ const AddProduct = () => {
     category: "",
     Background: {}, // Initialize optional fields as empty objects
     animation: {},
-    "Character Proportion": {},
+    Character_Proportion: {},
     Rigging: {},
-    "Overlay Type": {},
+    Overlay_Type: {},
   });
 
   const openModal = () => {
@@ -27,6 +27,7 @@ const AddProduct = () => {
 
   const closeModal = () => {
     setIsModalOpen(false);
+    setStep(1);
   };
 
   const onDrop = (acceptedFiles) => {
@@ -74,9 +75,9 @@ const AddProduct = () => {
     if (
       name == "Background" ||
       name == "animation" ||
-      name == "Character Proportion" ||
+      name == "Character_Proportion" ||
       name == "Rigging" ||
-      name == "Overlay Type"
+      name == "Overlay_Type"
     ) {
       setFormData({
         ...formData,
@@ -129,9 +130,9 @@ const AddProduct = () => {
       const optionalFieldNames = [
         "Background",
         "animation",
-        "Character Proportion",
+        "Character_Proportion",
         "Rigging",
-        "Overlay Type",
+        "Overlay_Type",
       ];
   
       optionalFieldNames.forEach((fieldName) => {
@@ -252,7 +253,7 @@ const AddProduct = () => {
                 Select category
               </option>
               {/* categeries no 1 */}
-              <option value=" ">Anime</option>
+              <option value="Anime">Anime</option>
               <option value="DND_Character">DND Character</option>
               <option value="OC_Art">OC Art</option>
               <option value="Furry">Furry</option>
@@ -493,7 +494,7 @@ const AddProduct = () => {
               <input
                 type="checkbox"
                 id="headshot"
-                name="Character Proportion"
+                name="Character_Proportion"
                 value="Headshot"
                 // checked={formData.Animation.includes("Yes")} // Uncomment and modify accordingly
                 onChange={handleInputChange}
@@ -504,7 +505,7 @@ const AddProduct = () => {
               <input
                 type="checkbox"
                 id="Half Body"
-                name="Character Proportion"
+                name="Character_Proportion"
                 value="Half Body"
                 // checked={formData.Animation.includes("No")} // Uncomment and modify accordingly
                 onChange={handleInputChange}
@@ -515,7 +516,7 @@ const AddProduct = () => {
               <input
                 type="checkbox"
                 id="Full Body"
-                name="Character Proportion"
+                name="Character_Proportion"
                 value="Full Body"
                 // checked={formData.Animation.includes("No")} // Uncomment and modify accordingly
                 onChange={handleInputChange}
@@ -676,7 +677,7 @@ const AddProduct = () => {
               <input
                 type="checkbox"
                 id="headshot"
-                name="Character Proportion"
+                name="Character_Proportion"
                 value="Headshot"
                 // checked={formData.Animation.includes("Yes")} // Uncomment and modify accordingly
                 onChange={handleInputChange}
@@ -686,7 +687,7 @@ const AddProduct = () => {
               <input
                 type="checkbox"
                 id="Half Body"
-                name="Character Proportion"
+                name="Character_Proportion"
                 value="Half_Body"
                 // checked={formData.Animation.includes("No")} // Uncomment and modify accordingly
                 onChange={handleInputChange}
@@ -697,7 +698,7 @@ const AddProduct = () => {
               <input
                 type="checkbox"
                 id="Full Body"
-                name="Character Proportion"
+                name="Character_Proportion"
                 value="Full Body"
                 // checked={formData.Animation.includes("No")} // Uncomment and modify accordingly
                 onChange={handleInputChange}
@@ -783,7 +784,7 @@ const AddProduct = () => {
               <input
                 type="checkbox"
                 id="Cam Overlay"
-                name="Overlay Type"
+                name="Overlay_Type"
                 value="Cam Overlay"
                 // checked={formData.Animation.includes("Yes")} // Uncomment and modify accordingly
                 onChange={handleInputChange}
@@ -797,7 +798,7 @@ const AddProduct = () => {
               <input
                 type="checkbox"
                 id="Chat Overlay"
-                name="Overlay Type"
+                name="Overlay_Type"
                 value="Chat Overlay"
                 // checked={formData.Animation.includes("Yes")} // Uncomment and modify accordingly
                 onChange={handleInputChange}
@@ -811,7 +812,7 @@ const AddProduct = () => {
               <input
                 type="checkbox"
                 id="Full Stream Package"
-                name="Overlay Type"
+                name="Overlay_Type"
                 value="Full Stream Package"
                 // checked={formData.Animation.includes("Yes")} // Uncomment and modify accordingly
                 onChange={handleInputChange}
@@ -825,7 +826,7 @@ const AddProduct = () => {
               <input
                 type="checkbox"
                 id="Stream Overlay"
-                name="Overlay Type"
+                name="Overlay_Type"
                 value="Stream Overlay"
                 // checked={formData.Animation.includes("Yes")} // Uncomment and modify accordingly
                 onChange={handleInputChange}
@@ -839,7 +840,7 @@ const AddProduct = () => {
               <input
                 type="checkbox"
                 id="Stream Screens"
-                name="Overlay Type"
+                name="Overlay_Type"
                 value="Stream Screens"
                 // checked={formData.Animation.includes("Yes")} // Uncomment and modify accordingly
                 onChange={handleInputChange}

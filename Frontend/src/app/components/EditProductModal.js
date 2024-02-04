@@ -83,6 +83,9 @@ const EditProductModal = ({ isOpen, onClose, product, onUpdate }) => {
         formData.append("imageData", imageData);
         formData.append("imageContentType", imageContentType);
       }
+      else{
+        formData.append("imageUrl",editedProduct?.imageUrl);
+      }
 
       const response = await axios.post(
         `/update-product/${product._id}`,
@@ -96,7 +99,10 @@ const EditProductModal = ({ isOpen, onClose, product, onUpdate }) => {
 
       console.log(response.data); // Handle the response as needed
       onUpdate(response.data.updatedProduct); // Assuming you have a function to handle the updated product
-      onClose(); // Close the modal after updating
+      setEditedProduct({});
+      setSelectedFile(null) ;
+      onClose();
+
     } catch (error) {
       console.error("Error updating product:", error);
       // Handle errors, display an error message, etc.
@@ -116,7 +122,10 @@ const EditProductModal = ({ isOpen, onClose, product, onUpdate }) => {
               Edit Product
             </h3>
             <button
-              onClick={onClose}
+              onClick={()=>{onClose();
+                setEditedProduct({});
+                setSelectedFile(null) ;
+              }}
               type="button"
               className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
             >
@@ -145,7 +154,7 @@ const EditProductModal = ({ isOpen, onClose, product, onUpdate }) => {
                   required
                 />
               </div>
-              <div>
+              {/* <div>
                 <label
                   htmlFor="brand"
                   className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -162,7 +171,7 @@ const EditProductModal = ({ isOpen, onClose, product, onUpdate }) => {
                   placeholder="Product brand"
                   required
                 />
-              </div>
+              </div> */}
               <div>
                 <label
                   htmlFor="price"
@@ -199,7 +208,7 @@ const EditProductModal = ({ isOpen, onClose, product, onUpdate }) => {
                     Select category
                   </option>
                   {/* categeries no 1 */}
-                  <option value=" ">Anime</option>
+                  <option value="Anime">Anime</option>
                   <option value="DND_Character">DND Character</option>
                   <option value="OC_Art">OC Art</option>
                   <option value="Furry">Furry</option>

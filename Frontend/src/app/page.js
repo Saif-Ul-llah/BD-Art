@@ -7,7 +7,7 @@ import { SessionProvider } from 'next-auth/react'
 
 const Home = () => {
   return (
-    <div>
+    <div className=''>
       <Home1/>
     {/* <SessionProvider >
      <Login/>
