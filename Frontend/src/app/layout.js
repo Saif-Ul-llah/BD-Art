@@ -1,13 +1,19 @@
 "use client";
 import { SessionProvider } from "next-auth/react";
 import "./globals.css";
+import { useEffect, useState } from "react";
 
 export default function RootLayout({ children }) {
-  let bgCheck =
-    window.location.href.includes("dashboard") ||
-    window.location.href.includes("Adminproduct") ||
-    window.location.href.includes("Promo_Codes") ||
-    window.location.href.includes("AdminPreMadeArt");
+  const [bgCheck, setBgCheck] = useState(false);
+
+  useEffect(() => {
+    setBgCheck(
+      window.location.href.includes("dashboard") ||
+      window.location.href.includes("Adminproduct") ||
+      window.location.href.includes("Promo_Codes") ||
+      window.location.href.includes("AdminPreMadeArt")
+    );
+  }, []); 
   return (
     <html lang="en">
       <body
