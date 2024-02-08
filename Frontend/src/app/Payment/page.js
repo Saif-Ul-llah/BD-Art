@@ -96,7 +96,7 @@ const Pay = () => {
             let response = await axios.post("/create-checkout-session", {
               cart,
               user,
-             total, 
+              total,
             });
             // console.log(response);
 
@@ -109,9 +109,9 @@ const Pay = () => {
               //   total,
               // });
               // if(res.status==201){
-                setdata(false);
-                // window.open(response.data, "_blank");
-                window.location.href=response.data.url
+              setdata(false);
+              // window.open(response.data, "_blank");
+              window.location.href = response.data.url;
               // }
             } else {
               console.error("No 'approveLink' found in the Stripe response.");
@@ -191,7 +191,7 @@ const Pay = () => {
       <div>
         <Image
           src={bg}
-          className="w-full absolute -z-10  h-screen"
+          className="w-full absolute -z-10 h-screen hidden md:block"
           alt="image"
         />
       </div>
@@ -203,7 +203,7 @@ const Pay = () => {
         ) : (
           <div className="flex flex-col opacity-80  items-center justify-center px-6 md:py-8 mx-auto w-screen lg:py-0">
             <div className="w-screen  bg-transparent text-white rounded-lg shadow dark:border md:mt-0  xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-              <div className="flex mx-auto md:gap-x-64 p-6  sm:p-8">
+              <div className="md:flex mx-auto md:gap-x-64 p-6  sm:p-8">
                 {/* <form onSubmit={handleSubmit}> */}
                 <div>
                   {/* Email */}
@@ -220,7 +220,7 @@ const Pay = () => {
                       value={formData.email}
                       onChange={handleChange}
                       id="email"
-                      className={`border-2 bg-transparent border-white md:text-2xl text-white placeholder:text-white rounded-lg block w-full md:p-2`}
+                      className={`border-2 bg-transparent border-white md:text-2xl text-white placeholder:text-white rounded-lg block w-full p-2`}
                       placeholder="Email"
                       required=""
                     />
@@ -243,13 +243,15 @@ const Pay = () => {
                         value={formData.country}
                         onChange={handleChange}
                         id="country"
-                        className=" border-2 bg-transparent border-white md:text-2xl text-white placeholder:text-white  rounded-lg block w-full md:p-2.5"
+                        className=" border-2 bg-transparent border-white md:text-2xl text-white placeholder:text-white  rounded-lg block w-full p-2.5"
                         placeholder="Country Name"
                         required=""
                       />
-                       {formErrors.country && (
-                      <p className="text-red-500 text-lg">{formErrors.country}</p>
-                    )}
+                      {formErrors.country && (
+                        <p className="text-red-500 text-lg">
+                          {formErrors.country}
+                        </p>
+                      )}
                     </div>
                     <div className="grid grid-cols-2">
                       {/* First Name */}
@@ -260,13 +262,15 @@ const Pay = () => {
                           value={formData.firstName}
                           onChange={handleChange}
                           id="firstName"
-                          className=" border-2 bg-transparent my-2 border-white md:text-2xl text-white placeholder:text-white  rounded-lg block w-full md:p-2.5"
+                          className=" border-2 bg-transparent my-2 border-white md:text-2xl text-white placeholder:text-white  rounded-lg block w-full p-2.5"
                           placeholder="First Name"
                           required=""
                         />
-                         {formErrors.firstName && (
-                      <p className="text-red-500 text-lg">{formErrors.firstName}</p>
-                    )}
+                        {formErrors.firstName && (
+                          <p className="text-red-500 text-lg">
+                            {formErrors.firstName}
+                          </p>
+                        )}
                       </div>
                       {/* Last Name */}
                       <div className="md:my-3">
@@ -276,13 +280,15 @@ const Pay = () => {
                           value={formData.lastName}
                           onChange={handleChange}
                           id="lastName"
-                          className=" border-2 bg-transparent my-2 ml-2 md:ml-5 border-white md:text-2xl text-white placeholder:text-white rounded-lg block w-full md:w-11/12 md:p-2.5"
+                          className=" border-2 bg-transparent my-2 ml-2 md:ml-5 border-white md:text-2xl text-white placeholder:text-white rounded-lg block w-full md:w-11/12 p-2.5"
                           placeholder="Last Name"
                           required=""
                         />
-                         {formErrors.lastName && (
-                      <p className="text-red-500 text-lg">{formErrors.lastName}</p>
-                    )}
+                        {formErrors.lastName && (
+                          <p className="text-red-500 text-lg">
+                            {formErrors.lastName}
+                          </p>
+                        )}
                       </div>
                     </div>
                     {/* Phone Number */}
@@ -293,13 +299,15 @@ const Pay = () => {
                         value={formData.phoneNumber}
                         onChange={handleChange}
                         id="phoneNumber"
-                        className=" border-2 bg-transparent border-white md:text-2xl text-white placeholder:text-white  rounded-lg block w-full md:p-2.5"
+                        className=" border-2 bg-transparent border-white md:text-2xl text-white placeholder:text-white  rounded-lg block w-full p-2.5"
                         placeholder="Phone Number"
                         required=""
                       />
-                       {formErrors.phoneNumber && (
-                      <p className="text-red-500 text-lg">{formErrors.phoneNumber}</p>
-                    )}
+                      {formErrors.phoneNumber && (
+                        <p className="text-red-500 text-lg">
+                          {formErrors.phoneNumber}
+                        </p>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -319,7 +327,7 @@ const Pay = () => {
                         value={formData.promoCode}
                         onChange={handleChange}
                         id="promoCode"
-                        className=" border-2 bg-transparent border-white md:text-2xl text-white placeholder:text-white  rounded-lg block  md:p-2.5"
+                        className=" border-2 bg-transparent border-white md:text-2xl text-white placeholder:text-white  rounded-lg block  p-2.5"
                         placeholder="Discount Code"
                         required=""
                       />
@@ -328,7 +336,7 @@ const Pay = () => {
                     <div className="flex w-full justify-center items-center  text-[#4b214c] font-bold md:text-3xl">
                       <button
                         onClick={applyPromoCode}
-                        className="mx-auto md:mt-8 md:p-3 p-2 rounded-md bg-white"
+                        className="mx-auto mt-8 md:p-3 p-2 rounded-md bg-white"
                       >
                         Apply
                       </button>
@@ -347,45 +355,54 @@ const Pay = () => {
                   </div>
 
                   <div>
-                    <div
-                      className=" border-2 bg-transparent border-white md:text-2xl text-white placeholder:text-white  rounded-lg flex w-full md:p-2.5">
-
-                    <label
-                      name="total"
-                      id="total"
-                      placeholder="Total"
-                      required=""
+                    <div className=" border-2 bg-transparent border-white md:text-2xl text-white placeholder:text-white  rounded-lg flex w-full p-2.5">
+                      <label
+                        name="total"
+                        id="total"
+                        placeholder="Total"
+                        required=""
                       >
-                      Total: 
-                    </label>
-                    <p className="text-2xl ml-auto leading-tight tracking-widest  ">
+                        Total:
+                      </label>
+                      <p className="text-2xl ml-auto leading-tight tracking-widest  ">
                         {formData.total}
                       </p>
+                    </div>
                   </div>
-                      </div>
                   <div className="flex mt-5">
-                    <input
-                      type="radio"
-                      onChange={handleChange}
-                      value="paypal"
-                      name="payment"
-                      className="mr-2"
-                    />
-                    <img src="/Paypal logo.png" className="w-30  h-10" />
+                    <label className="cursor-pointer flex">
+                      <input
+                        type="radio"
+                        onChange={handleChange}
+                        value="paypal"
+                        name="payment"
+                        className="mr-2"
+                      />
+                      <img
+                        src="/Paypal logo.png"
+                        className="w-30 h-10"
+                        alt="PayPal"
+                      />
+                    </label>
                   </div>
-                  <div className="flex mt-5 ">
-                    <input
-                      type="radio"
-                      onChange={handleChange}
-                      value="stripe"
-                      name="payment"
-                      className="mr-2"
-                    />
-                    <img
-                      src="/Stripe_logo.png"
-                      className="w-30 bg-gray-600 rounded-lg h-10"
-                    />
+
+                  <div className="flex mt-5">
+                    <label className="cursor-pointer flex">
+                      <input
+                        type="radio"
+                        onChange={handleChange}
+                        value="stripe"
+                        name="payment"
+                        className="mr-2"
+                      />
+                      <img
+                        src="/Stripe_logo.png"
+                        className="w-30 bg-gray-600 rounded-lg h-10"
+                        alt="Stripe"
+                      />
+                    </label>
                   </div>
+
                   <div className="flex w-full justify-center items-center  text-[#4b214c] font-bold text-3xl">
                     <button
                       type="submit"
