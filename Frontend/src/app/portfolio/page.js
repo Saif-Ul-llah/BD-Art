@@ -160,7 +160,7 @@ const PortfolioCards = () => {
                         />
                       </svg>
                       
-                      <button className="text-sm">Price : {product.price}</button>
+                      {/* <button className="text-sm">Price : {product.price}</button> */}
                       <p className="pl-16">Details</p>
                     </div>
                   </Link>

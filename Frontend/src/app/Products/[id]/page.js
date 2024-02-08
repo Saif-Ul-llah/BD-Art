@@ -76,7 +76,7 @@ const Product = (params) => {
       productDetail.category == "OC_Art" ||
       productDetail.category == "Furry"
     ) {
-      if (name === "Character Proportion" && !Executed.Character_Proportion) {
+      if (name === "Character_Proportion" && !Executed.Character_Proportion) {
         if (value == "Half Body") {
           setProductDetail({
             ...productDetail,
@@ -135,7 +135,7 @@ const Product = (params) => {
     }
 
     if (productDetail.category == "Vtuber") {
-      if (name === "Character Proportion" && !Executed.Character_Proportion) {
+      if (name === "Character_Proportion" && !Executed.Character_Proportion) {
         if (value == "Half Body") {
           setProductDetail({
             ...productDetail,
@@ -214,7 +214,7 @@ const Product = (params) => {
     }
 
     if (productDetail.category == "PNG_Tuber") {
-      if (name === "Character Proportion" && !Executed.Character_Proportion) {
+      if (name === "Character_Proportion" && !Executed.Character_Proportion) {
         if (value == "Half Body") {
           setProductDetail({
             ...productDetail,
@@ -376,20 +376,25 @@ const Product = (params) => {
 
       try {
         setLoading(true);
-        const response = await Axios.post(
-          "https://api.cloudinary.com/v1_1/saif-ul-llah/image/upload",
-          cloudinaryData,
-          {
-            headers: { "Content-Type": "multipart/form-data" },
-          }
-        );
+        let response;
+        if (selectedFile) {
+          response = await Axios.post(
+            "https://api.cloudinary.com/v1_1/saif-ul-llah/image/upload",
+            cloudinaryData,
+            {
+              headers: { "Content-Type": "multipart/form-data" },
+            }
+          );
+        } else {
+          response = "";
+        }
 
         const formData = {
           productId: productDetail,
           userId: userId,
           selectedOptions,
           description,
-          img: response?.data?.url,
+          img: response?.data?.url || " ",
         };
 
         const cartResponse = await axios.post("/update-cart", formData);
