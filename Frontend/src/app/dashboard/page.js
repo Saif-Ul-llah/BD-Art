@@ -3,11 +3,15 @@ import React, { useEffect, useState } from "react";
 
 import AdminSideMenu from "../components/adminSideMenu";
 import axios from "../../../utilis/axios";
+import { useRouter } from "next/navigation";
 
 const Dashboard = () => {
   const [orders, setOrders] = useState([]);
+  const router = useRouter();
 
   useEffect(() => {
+    let AdminLogin=localStorage.getItem("admin")
+  
     const fetchOrders = async () => {
       try {
         const response = await axios.get("/get-Orders");
@@ -17,8 +21,12 @@ const Dashboard = () => {
         console.error("Error fetching orders:", error);
       }
     };
-
-    fetchOrders();
+    if(AdminLogin){
+      fetchOrders();
+    }else{
+      router.push("/admin")
+    }
+   
   }, []);
  return (
     <div>
@@ -103,6 +111,7 @@ const Dashboard = () => {
                             value={"1234"}
                             className="peer hidden"
                             name="playerId"
+                            checked="true"
                           />
                           <div className="hover:bg-gray-50 flex items-center justify-between border-2 rounded-lg cursor-pointer text-sm border-gray-200 group ">
                             <svg

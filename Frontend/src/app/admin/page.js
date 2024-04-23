@@ -28,7 +28,8 @@ const Alogin = () => {
       const [isLoading, setIsLoading] = useState(true);
     
     
-  const handleSignIn = async () => {
+  const handleSignIn = async (e) => {
+    e.preventDefault()
     // console.log(formData.email,formData.password)
     try {
       let bodyformData = new FormData();
@@ -49,6 +50,7 @@ const Alogin = () => {
         //   const res ={...response.data.message}
 
           if (success == true || response.data) {
+            localStorage.setItem("admin",true)
               router.push("/dashboard");
         } else {
             // Registration failed
