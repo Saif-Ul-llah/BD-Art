@@ -2,10 +2,10 @@
 import React, { useEffect, useState, useRef } from "react";
 import axios from "../../../../utilis/axios";
 import Axios from "axios";
-import Cart from "src/app/components/cart";
+import Cart from "../../components/cart";
 import { useRouter } from "next/navigation";
-import Spinner from "src/app/components/spinner";
-import Navbar from "src/app/components/nav";
+import Spinner from "../../components/spinner";
+import Navbar from "../../components/nav";
 import bg from "../../img/cartBg.jpg";
 import Image from "next/image";
 const Product = (params) => {
